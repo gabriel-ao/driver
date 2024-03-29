@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  drive-db:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - driver-ntw
+
+  my-pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "15432:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: gabriel-ao@hotmail.com
+      PGADMIN_DEFAULT_PASSWORD: postgres
+    networks:
+      - driver-ntw
+
+networks:
+  driver-ntw:
+    driver: bridge

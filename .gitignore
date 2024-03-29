@@ -1,0 +1,8 @@
+﻿################################################################################
+# Este arquivo .gitignore foi criado automaticamente pelo Microsoft(R) Visual Studio.
+################################################################################
+
+/Driver/Driver.Infrastructure/obj
+/Driver/Driver.Domain/obj
+/Driver/Driver.API/bin/Debug/net6.0
+/Driver/Driver.API/obj
