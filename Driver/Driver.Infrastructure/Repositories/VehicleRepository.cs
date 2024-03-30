@@ -2,7 +2,9 @@
 using Driver.Domain.Interfaces.Repositories;
 using Driver.Domain.Models.Base;
 using Driver.Domain.Models.Input;
+using Driver.Domain.Models.Output;
 using Newtonsoft.Json;
+using System.Data;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
@@ -36,6 +38,96 @@ namespace Driver.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
+                response.Error = true;
+                response.Message = ex.Message;
+                return response;
+            }
+            finally
+            {
+                _connection.CloseConnection();
+            }
+        }
+
+        public BaseOutput CreateVehicle(CreateVehicleInputModel input)
+        {
+            var response = new BaseOutput();
+
+            var QUERY = $"SELECT * FROM \"public\".\"ADM_Create_Vehicle\"(" +
+                $"'{input.Year}', " +
+                $"'{input.Model}', " +
+                $"'{input.Plate}', " +
+                $"'{input.UserId}')";
+
+            try
+            {
+                CreateLog(new CreateLogInput
+                {
+                    MethodName = "Vehicle/Create",
+                    Message = "verificando input de CreateVehicle",
+                    StackMessage = JsonConvert.SerializeObject(input),
+                    Type = "Info"
+                });
+
+                var connection = _connection.GetConnection;
+                response = connection.QueryFirstOrDefault<BaseOutput>(QUERY);
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                CreateLog(new CreateLogInput
+                {
+                    MethodName = "Vehicle/Create",
+                    Message = ex.Message,
+                    StackMessage = ex.StackTrace,
+                    Type = "Error"
+                });
+
+                response.Error = true;
+                response.Message = ex.Message;
+                return response;
+            }
+            finally
+            {
+                _connection.CloseConnection();
+            }
+        }
+
+        public GetVehicleOutput GetVehicle(GetVehicleInputModel input)
+        {
+            var response = new GetVehicleOutput();
+
+            var QUERY = $"SELECT * FROM \"public\".\"ADM_Get_Vehicles\"(" +
+                $"'{input.Plate}', " +
+                $"'{input.UserId}')";
+
+            try
+            {
+                CreateLog(new CreateLogInput
+                {
+                    MethodName = "Vehicle/Get",
+                    Message = "verificando input de UpdateVehicle",
+                    StackMessage = JsonConvert.SerializeObject(input),
+                    Type = "Info"
+                });
+
+                var connection = _connection.GetConnection;
+                var result = connection.Query<GetVehicleItem>(QUERY).ToList();
+
+                response.List = result;
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                CreateLog(new CreateLogInput
+                {
+                    MethodName = "Vehicle/Get",
+                    Message = ex.Message,
+                    StackMessage = ex.StackTrace,
+                    Type = "Error"
+                });
+
                 response.Error = true;
                 response.Message = ex.Message;
                 return response;
@@ -87,7 +179,49 @@ namespace Driver.Infrastructure.Repositories
             {
                 _connection.CloseConnection();
             }
+        }
 
+        public BaseOutput DeleteVehicle(DeleteVehicleInputModel input)
+        {
+            var response = new BaseOutput();
+
+            var QUERY = $"SELECT * FROM \"public\".\"ADM_Delete_Vehicle\"(" +
+                $"'{input.VehicleId}', " +
+                $"'{input.UserId}')";
+
+            try
+            {
+                CreateLog(new CreateLogInput
+                {
+                    MethodName = "Vehicle/Delete",
+                    Message = "verificando input de DeleteVehicle",
+                    StackMessage = JsonConvert.SerializeObject(input),
+                    Type = "Info"
+                });
+
+                var connection = _connection.GetConnection;
+                response = connection.QueryFirstOrDefault<BaseOutput>(QUERY);
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                CreateLog(new CreateLogInput
+                {
+                    MethodName = "Vehicle/Delete",
+                    Message = ex.Message,
+                    StackMessage = ex.StackTrace,
+                    Type = "Error"
+                });
+
+                response.Error = true;
+                response.Message = ex.Message;
+                return response;
+            }
+            finally
+            {
+                _connection.CloseConnection();
+            }
         }
     }
 }

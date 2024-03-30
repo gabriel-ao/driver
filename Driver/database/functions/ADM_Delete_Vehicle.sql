@@ -19,7 +19,7 @@ BEGIN
     IF EXISTS (SELECT 1 FROM "ManagerUsers" AS MU WHERE MU."ID" = userid) THEN
 		IF NOT EXISTS (SELECT 1 FROM "Rents" WHERE "VehicleID" = vehicleid AND "PricePaid" IS NULL) THEN
         	IF NOT EXISTS(SELECT 1 FROM "Rents" WHERE "VehicleID" = vehicleid) THEN
-				IF EXISTS(SELECT 1 FROM "Rents" WHERE "ID" = vehicleid) THEN
+				IF EXISTS(SELECT 1 FROM "Vehicles" WHERE "ID" = vehicleid) THEN
 					DELETE from "Vehicles" WHERE "ID" = vehicleid; -- delete
 				ELSE 
 					"Message" := 'Invalid Vehicle';
