@@ -29,8 +29,6 @@ VALUES
     ('9a2d1a90-7f88-4877-81d8-5304b6f1a71c', 15, 28.00),
     ('c7af6d07-ec99-49f8-a0c6-646f04430d88', 30, 22.00);
 
-select * from "Plans"
-
 
 CREATE TABLE "ProcessStatus" (
     "ID" UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -39,7 +37,7 @@ CREATE TABLE "ProcessStatus" (
     "UpdateDate" TIMESTAMP DEFAULT NULL
 );
 
-INSERT INTO "ProcessStatus" ("Description")
+INSERT INTO "ProcessStatus" ("ID","Description")
 VALUES 
     ('7292e427-226c-4195-ad0d-c4e4f91dc987', 'Disponível'),
     ('621a379a-cd1a-43c9-b11a-1d5cee353298', 'Aceito'),

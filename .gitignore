@@ -6,3 +6,5 @@
 /Driver/Driver.Domain/obj
 /Driver/Driver.API/bin/Debug/net6.0
 /Driver/Driver.API/obj
+/Driver/Driver.Domain/bin/Debug/net6.0
+/Driver/Driver.Infrastructure/bin/Debug/net6.0
