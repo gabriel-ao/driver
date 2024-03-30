@@ -70,12 +70,14 @@ CREATE TABLE "ManagerUsers" (
 
 CREATE TABLE "Drivers" (
     "ID" UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    "FirstName" VARCHAR(100) NOT NULL,
+    "LastName" VARCHAR(100) NOT NULL,
     "CNPJ" VARCHAR(20) UNIQUE,
-    "BirthDate" DATE,
-    "CnhNumber" VARCHAR(20) UNIQUE,
+    "BirthDate" DATE NOT NULL,
+    "CnhNumber" VARCHAR(20)  NOT NULL UNIQUE,
     "CnhID" UUID NOT NULL,
-    "CnhImage" VARCHAR(1000),
-    "Password" VARCHAR(255),
+    "CnhImage" VARCHAR(1000) NOT NULL,
+    "Password" VARCHAR(255)  NOT NULL,
     "Active" BOOLEAN,
     "CreateDate" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     "UpdateDate" TIMESTAMP DEFAULT NULL,

@@ -4,49 +4,19 @@ using Driver.Domain.Models.Base;
 using Driver.Domain.Models.Input;
 using Driver.Domain.Models.Output;
 using Newtonsoft.Json;
-using System.Data;
-using System.Text.Json.Nodes;
-using System.Text.Json.Serialization;
 
 namespace Driver.Infrastructure.Repositories
 {
     public class VehicleRepository : IVehicleRepository
     {
         private readonly IDapperConnectionFactory _connection;
-
-        public VehicleRepository(IDapperConnectionFactory connection)
+        private readonly ILogRepository _logRepository;
+        public VehicleRepository(IDapperConnectionFactory connection, ILogRepository logRepository)
         {
             _connection = connection;
+            _logRepository = logRepository;
         }
 
-        public BaseOutput CreateLog(CreateLogInput input)
-        {
-            var response = new BaseOutput();
-
-            var QUERY = $"SELECT * FROM \"public\".\"Create_Logs\"(" +
-                $"'{input.MethodName}', " +
-                $"'{input.Message}', " +
-                $"'{input.StackMessage}', " +
-                $"'{input.Type}')";
-
-            try
-            {
-                var connection = _connection.GetConnection;
-                response = connection.QueryFirstOrDefault<BaseOutput>(QUERY);
-
-                return response;
-            }
-            catch (Exception ex)
-            {
-                response.Error = true;
-                response.Message = ex.Message;
-                return response;
-            }
-            finally
-            {
-                _connection.CloseConnection();
-            }
-        }
 
         public BaseOutput CreateVehicle(CreateVehicleInputModel input)
         {
@@ -60,7 +30,7 @@ namespace Driver.Infrastructure.Repositories
 
             try
             {
-                CreateLog(new CreateLogInput
+                _logRepository.CreateLog(new CreateLogInput
                 {
                     MethodName = "Vehicle/Create",
                     Message = "verificando input de CreateVehicle",
@@ -75,7 +45,7 @@ namespace Driver.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-                CreateLog(new CreateLogInput
+                _logRepository.CreateLog(new CreateLogInput
                 {
                     MethodName = "Vehicle/Create",
                     Message = ex.Message,
@@ -103,7 +73,7 @@ namespace Driver.Infrastructure.Repositories
 
             try
             {
-                CreateLog(new CreateLogInput
+                _logRepository.CreateLog(new CreateLogInput
                 {
                     MethodName = "Vehicle/Get",
                     Message = "verificando input de UpdateVehicle",
@@ -120,7 +90,7 @@ namespace Driver.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-                CreateLog(new CreateLogInput
+                _logRepository.CreateLog(new CreateLogInput
                 {
                     MethodName = "Vehicle/Get",
                     Message = ex.Message,
@@ -149,7 +119,7 @@ namespace Driver.Infrastructure.Repositories
 
             try
             {
-                CreateLog(new CreateLogInput
+                _logRepository.CreateLog(new CreateLogInput
                 {
                     MethodName = "Vehicle/Update",
                     Message = "verificando input de UpdateVehicle",
@@ -164,11 +134,12 @@ namespace Driver.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-                CreateLog(new CreateLogInput{
-                  MethodName = "Vehicle/Update",
-                  Message = ex.Message,
-                  StackMessage = ex.StackTrace,
-                  Type = "Error"
+                _logRepository.CreateLog(new CreateLogInput
+                {
+                    MethodName = "Vehicle/Update",
+                    Message = ex.Message,
+                    StackMessage = ex.StackTrace,
+                    Type = "Error"
                 });
 
                 response.Error = true;
@@ -191,7 +162,7 @@ namespace Driver.Infrastructure.Repositories
 
             try
             {
-                CreateLog(new CreateLogInput
+                _logRepository.CreateLog(new CreateLogInput
                 {
                     MethodName = "Vehicle/Delete",
                     Message = "verificando input de DeleteVehicle",
@@ -206,7 +177,7 @@ namespace Driver.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-                CreateLog(new CreateLogInput
+                _logRepository.CreateLog(new CreateLogInput
                 {
                     MethodName = "Vehicle/Delete",
                     Message = ex.Message,

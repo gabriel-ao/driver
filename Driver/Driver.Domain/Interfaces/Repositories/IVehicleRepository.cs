@@ -6,7 +6,6 @@ namespace Driver.Domain.Interfaces.Repositories
 {
     public interface IVehicleRepository
     {
-        BaseOutput CreateLog(CreateLogInput input);
         BaseOutput CreateVehicle(CreateVehicleInputModel input);
         GetVehicleOutput GetVehicle(GetVehicleInputModel input);
         BaseOutput UpdateVehicle(UpdateVehicleInputModel input);

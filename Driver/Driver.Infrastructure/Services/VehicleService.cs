@@ -15,11 +15,6 @@ namespace Driver.Infrastructure.Services
             _vehicleRepository = vehicleRepository;
         }
 
-        public BaseOutput CreateLog(CreateLogInput input)
-        {
-            return _vehicleRepository.CreateLog(input);
-        }
-
         public BaseOutput CreateVehicle(CreateVehicleInputModel input)
         {
             return _vehicleRepository.CreateVehicle(input);

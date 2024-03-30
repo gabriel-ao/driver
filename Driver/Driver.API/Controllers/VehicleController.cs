@@ -24,7 +24,7 @@ namespace Driver.API.Controllers
             {
                 Year = input.Year,
                 Model = input.Model,
-                Plate = input.Plate,
+                Plate = input.Plate.Replace(".", "").Replace("-", "").Replace(" ", ""),
                 UserId = new Guid("2506519c-a134-4bb5-a3ad-1753d6b60a77")
             };
 
@@ -41,7 +41,7 @@ namespace Driver.API.Controllers
 
             var inputModel = new GetVehicleInputModel()
             {
-                Plate = plate,
+                Plate = plate.Replace(".", "").Replace("-", "").Replace(" ", ""),
                 UserId = new Guid("2506519c-a134-4bb5-a3ad-1753d6b60a77")
             };
 
@@ -56,7 +56,7 @@ namespace Driver.API.Controllers
 
             var inputModel = new UpdateVehicleInputModel()
             {
-                NewPlate= input.NewPlate,
+                NewPlate= input.NewPlate.Replace(".", "").Replace("-", "").Replace(" ", ""),
                 VehicleId = input.VehicleId,
                 UserId = new Guid("2506519c-a134-4bb5-a3ad-1753d6b60a77")
             };
