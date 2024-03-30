@@ -135,17 +135,13 @@ CREATE TABLE "Drivers_Notifications" (
 );
 
 
-
-select * from "CnhTypes";
-select * from "Plans";
-select * from "ProcessStatus"
-select * from "Vehicles"
-select * from "ManagerUsers"
-select * from "Drivers" 
-select * from "Rents"
-select * from "DeliveryOrders"
-select * from "Drivers_Notifications"
+CREATE TABLE "Logs" (
+    "ID" UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    "MethodName" VARCHAR(500),
+    "Message" VARCHAR(1000),
+    "StackMessage" VARCHAR(1000),
+    "Type" VARCHAR(100),
+    "CreateDate" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
 
-insert into "ManagerUsers" ("ID", "Email", "Password", "Active")
-values (uuid_generate_v4(), 'gabriel-ao@hotmail.com', '1996', true)

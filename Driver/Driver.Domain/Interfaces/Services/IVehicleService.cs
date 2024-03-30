@@ -5,6 +5,7 @@ namespace Driver.Domain.Interfaces.Services
 {
     public interface IVehicleService
     {
+        BaseOutput CreateLog(CreateLogInput input);
         BaseOutput UpdateVehicle(UpdateVehicleInputModel input);
     }
 }
