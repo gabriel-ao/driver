@@ -21,8 +21,9 @@ namespace Driver.Infrastructure.Repositories
                 {
                     //string connString = "Host=localhost;Port=5432;Username=seu_usuario;Password=sua_senha;Database=seu_banco_de_dados";
 
-                    string connectionString = "Host=localhost;Port=5432;Database=driver-db;User Id=postgres;Password=gabriel;"; // internet
-                    //string connectionString = "Host=localhost;Database=driver2-db;Port=5432;User Id=postgres;Password=gabriel;"; // meu projeto
+                    //string connectionString = "Host=localhost;Port=5432;Database=driver-db;User Id=postgres;Password=gabriel;"; // internet
+                    //string connectionString = "Server=127.0.0.1;Database=driver-db;Port=5433;User Id=postgres;Password=postgres;";
+                    string connectionString = "Server=localhost;Database=driver-db;Port=5433;User Id=postgres;Password=postgres;";
 
 
                     _connection = new NpgsqlConnection(connectionString);
