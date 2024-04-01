@@ -36,9 +36,6 @@ BEGIN
             WHERE 
                 (VH."Deleted" IS NULL OR VH."Deleted" = false) AND
                 VH."Plate" = CASE WHEN plate = '' THEN VH."Plate" ELSE plate END;
-    ELSE
-        -- Retorna uma lista vazia se o userid não existir na tabela ManagerUsers
-        RETURN QUERY SELECT NULL::uuid, NULL::integer, NULL::character varying, NULL::character varying, NULL::character varying, NULL::character varying;
     END IF;
     		
 END;

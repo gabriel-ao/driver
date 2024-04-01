@@ -102,7 +102,7 @@ CREATE TABLE "Rents" (
     CONSTRAINT "fk_driver" FOREIGN KEY ("DriverID") REFERENCES "Drivers"("ID")
 );
 
-CREATE TABLE "DeliveryOrders" (
+CREATE TABLE "Delivery_Orders" (
     "ID" UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
 	"Title" VARCHAR(100),
     "Description" VARCHAR(500),
@@ -122,7 +122,7 @@ CREATE TABLE "Notifications" (
     "OrderID" UUID,
     "CreateDate" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     "UpdateDate" TIMESTAMP DEFAULT NULL,
-    CONSTRAINT "fk_delivery_order" FOREIGN KEY ("OrderID") REFERENCES "DeliveryOrders"("ID")
+    CONSTRAINT "fk_delivery_order" FOREIGN KEY ("OrderID") REFERENCES "Delivery_Orders"("ID")
 );
 
 CREATE TABLE "Drivers_Notifications" (
