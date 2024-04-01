@@ -84,7 +84,7 @@ namespace Driver.Infrastructure.Repositories
                 var connection = _connection.GetConnection;
                 var result = connection.Query<GetVehicleItem>(QUERY).ToList();
 
-                response.List = result;
+                response.Vehicles = result;
 
                 return response;
             }

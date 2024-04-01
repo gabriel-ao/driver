@@ -6,9 +6,9 @@ namespace Driver.Domain.Models.Output
     {
         public GetVehicleOutput()
         {
-            List = new List<GetVehicleItem>();
+            Vehicles = new List<GetVehicleItem>();
         }
-        public List<GetVehicleItem> List { get; set; }
+        public List<GetVehicleItem> Vehicles { get; set; }
     }
 
     public class GetVehicleItem
