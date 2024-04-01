@@ -6,5 +6,7 @@ namespace Driver.Domain.Interfaces.Repositories
     public interface IDriverRepository
     {
         CreateDriverOutputModel CreateDriver(CreateDriverInput input);
+        CreateRentOutput CreateRent(CreateRentInputModel input);
+        UpdateRentOutput UpdateRent(UpdateRentInputModel input);
     }
 }

@@ -66,5 +66,92 @@ namespace Driver.Infrastructure.Repositories
                 _connection.CloseConnection();
             }
         }
+
+        public CreateRentOutput CreateRent(CreateRentInputModel input)
+        {
+            var response = new CreateRentOutput();
+
+            var QUERY = $"SELECT * FROM \"public\".\"DRV_Create_Rent\"(" +
+                $"'{input.PlanId}', " +
+                $"'{input.UserId}')";
+
+            try
+            {
+                _logRepository.CreateLog(new CreateLogInput
+                {
+                    MethodName = "Driver/Rent",
+                    Message = "verificando input de CreateRent",
+                    StackMessage = JsonConvert.SerializeObject(input),
+                    Type = "Info"
+                });
+
+                var connection = _connection.GetConnection;
+                response = connection.QueryFirstOrDefault<CreateRentOutput>(QUERY);
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logRepository.CreateLog(new CreateLogInput
+                {
+                    MethodName = "Driver/Create/Rent",
+                    Message = JsonConvert.SerializeObject(ex.Message).Replace("'", "´"),
+                    StackMessage = JsonConvert.SerializeObject(ex.Message).Replace("'", "´"),
+                    Type = "Error"
+                });
+
+                response.Error = true;
+                response.Message = ex.Message;
+                return response;
+            }
+            finally
+            {
+                _connection.CloseConnection();
+            }
+        }
+
+        public UpdateRentOutput UpdateRent(UpdateRentInputModel input)
+        {
+            var response = new UpdateRentOutput();
+
+            var QUERY = $"SELECT * FROM \"public\".\"DRV_Update_Rent\"(" +
+                $"'{input.PreviousDate.ToString("yyyy-MM-dd HH:mm:ss")}', " +
+                $"'{input.RentId}', " +
+                $"'{input.UserId}')";
+
+            try
+            {
+                _logRepository.CreateLog(new CreateLogInput
+                {
+                    MethodName = "Driver/Update/Rent",
+                    Message = "verificando input de CreateRent",
+                    StackMessage = JsonConvert.SerializeObject(input),
+                    Type = "Info"
+                });
+
+                var connection = _connection.GetConnection;
+                response = connection.QueryFirstOrDefault<UpdateRentOutput>(QUERY);
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logRepository.CreateLog(new CreateLogInput
+                {
+                    MethodName = "Driver/Rent",
+                    Message = JsonConvert.SerializeObject(ex.Message).Replace("'", "´"),
+                    StackMessage = JsonConvert.SerializeObject(ex.Message).Replace("'", "´"),
+                    Type = "Error"
+                });
+
+                response.Error = true;
+                response.Message = ex.Message;
+                return response;
+            }
+            finally
+            {
+                _connection.CloseConnection();
+            }
+        }
     }
 }

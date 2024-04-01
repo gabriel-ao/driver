@@ -32,5 +32,15 @@ namespace Driver.Infrastructure.Services
 
             return response;
         }
+
+        public CreateRentOutput CreateRent(CreateRentInputModel input)
+        {
+            return _driverRepository.CreateRent(input);
+        }
+
+        public UpdateRentOutput UpdateRent(UpdateRentInputModel input)
+        {
+            return _driverRepository.UpdateRent(input);
+        }
     }
 }

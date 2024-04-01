@@ -16,7 +16,7 @@ namespace Driver.API.Controllers
             _vehicleService = vehicleService;
         }
 
-        [HttpPost("Vehicle/Create")]
+        [HttpPost("Create")]
         public ActionResult<BaseOutput> CreateVehicle(CreateVehicleInput input)
         {
 
@@ -33,7 +33,7 @@ namespace Driver.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("Vehicle/Get")]
+        [HttpGet("Get")]
         public ActionResult<GetVehicleOutput> GetVehicle(string? plate)
         {
 
@@ -50,7 +50,7 @@ namespace Driver.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut("Vehicle/Update")]
+        [HttpPut("Update")]
         public ActionResult<BaseOutput> UpdateVehicle(UpdateVehicleInput input)
         {
 
@@ -66,7 +66,7 @@ namespace Driver.API.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("Vehicle/Detele")]
+        [HttpDelete("Detele")]
         public ActionResult<BaseOutput> DeteleVehicle(DeleteVehicleInput input)
         {
             var inputModel = new DeleteVehicleInputModel()
