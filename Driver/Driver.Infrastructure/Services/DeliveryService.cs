@@ -2,6 +2,7 @@
 using Driver.Domain.Interfaces.Services;
 using Driver.Domain.Models.Base;
 using Driver.Domain.Models.Input;
+using Driver.Domain.Models.Output;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
@@ -12,12 +13,13 @@ namespace Driver.Infrastructure.Services
     public class DeliveryService : IDeliveryService
     {
         private readonly ILogRepository _logRepository;
-
-        public DeliveryService(ILogRepository logRepository)
+        private readonly IDeliveryRepository _deliveryRepository;
+        public DeliveryService(ILogRepository logRepository, IDeliveryRepository deliveryRepository)
         {
-
             _logRepository = logRepository;
+            _deliveryRepository = deliveryRepository;
         }
+
         public BaseOutput PushNotification(PushNotificationInput input)
         {
             var factory = new ConnectionFactory()
@@ -83,6 +85,11 @@ namespace Driver.Infrastructure.Services
                                      autoAck: true,
                                      consumer: consumer);
             }
+        }
+
+        public CreateDeliveryOrderOutput CreateDeliveryOrder(CreateDeliveryOrderInputModel input)
+        {
+            return _deliveryRepository.CreateDeliveryOrder(input);
         }
     }
 }

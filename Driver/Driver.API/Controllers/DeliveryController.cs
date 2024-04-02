@@ -34,5 +34,22 @@ namespace Driver.API.Controllers
             return Ok(result);
         }
 
+
+        [HttpPost("Create")]
+        public ActionResult<BaseOutput> CreateDeliveryOrder(CreateDeliveryOrderInput input)
+        {
+            var inputModel = new CreateDeliveryOrderInputModel()
+            {
+                Title = input.Title,
+                Description = input.Description,
+                Price = input.Price,
+                UserId = new Guid("2506519c-a134-4bb5-a3ad-1753d6b60a77")
+            };
+
+            var result = _deliveryService.CreateDeliveryOrder(inputModel);
+
+            return Ok(result);
+        }
+
     }
 }

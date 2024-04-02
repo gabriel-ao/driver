@@ -1,5 +1,6 @@
 ﻿using Driver.Domain.Models.Base;
 using Driver.Domain.Models.Input;
+using Driver.Domain.Models.Output;
 
 namespace Driver.Domain.Interfaces.Services
 {
@@ -7,5 +8,6 @@ namespace Driver.Domain.Interfaces.Services
     {
         BaseOutput PushNotification(PushNotificationInput input);
         void ConsumeAvailableOrders();
+        CreateDeliveryOrderOutput CreateDeliveryOrder(CreateDeliveryOrderInputModel input);
     }
 }
