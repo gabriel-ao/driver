@@ -1,8 +1,11 @@
+-- FUNCTION: public.ADM_Create_Delivery_Order(character varying, character varying, numeric, uuid)
+
+-- DROP FUNCTION IF EXISTS public."ADM_Create_Delivery_Order"(character varying, character varying, numeric, uuid);
 
 CREATE OR REPLACE FUNCTION public."ADM_Create_Delivery_Order"(
 	title character varying,
 	description character varying,
-	price numeric(10,2),
+	price numeric,
 	userid uuid)
     RETURNS TABLE("OrderID" uuid, "Message" character varying, "Error" boolean) 
     LANGUAGE 'plpgsql'
@@ -21,7 +24,7 @@ BEGIN
 
 		"OrderID" := uuid_generate_v4();
 
-		INSERT INTO "Delivery_Orders" ("ID", "Title", "Description", "StatusID", "Price")
+		INSERT INTO "DeliveryOrders" ("ID", "Title", "Description", "StatusID", "Price")
 		VALUES ("OrderID", title, description, "DisponibleStatus", price);
 
     ELSE 
@@ -34,4 +37,5 @@ BEGIN
 END;
 $BODY$;
 
-
+ALTER FUNCTION public."ADM_Create_Delivery_Order"(character varying, character varying, numeric, uuid)
+    OWNER TO postgres;

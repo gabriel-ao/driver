@@ -33,7 +33,7 @@ namespace Driver.API.Controllers
             var inputModel = new CreateRentInputModel()
             {
                 PlanId = input.PlanId,
-                UserId = new Guid("3984508a-d787-4c66-b761-adc98083c5c1") // motorista gabriel
+                UserId = new Guid("6db6a464-fb46-47be-8555-4f3751229e63") // motorista gabriel
             };
 
             var result = _driverService.CreateRent(inputModel);

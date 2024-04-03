@@ -65,5 +65,42 @@ namespace Driver.Infrastructure.Repositories
                 _connection.CloseConnection();
             }
         }
+
+
+        public GetAvailableDriversOutput GetAvailableDrivers(Guid UserId)
+        {
+            var response = new GetAvailableDriversOutput();
+
+            var QUERY = $"SELECT * FROM \"public\".\"ADM_Get_Available_Drivers\"(" +
+                $"'{UserId}')";
+
+            try
+            {
+                var connection = _connection.GetConnection;
+                var result = connection.Query<GetAvailableDriverItem>(QUERY).ToList();
+                response.Rents = result;
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logRepository.CreateLog(new CreateLogInput
+                {
+                    MethodName = "Create/Delivery",
+                    Message = JsonConvert.SerializeObject(ex.Message).Replace("'", "´"),
+                    StackMessage = JsonConvert.SerializeObject(ex.Message).Replace("'", "´"),
+                    Type = "Error"
+                });
+
+                response.Error = true;
+                response.Message = ex.Message;
+                return response;
+            }
+            finally
+            {
+                _connection.CloseConnection();
+            }
+        }
+
     }
 }

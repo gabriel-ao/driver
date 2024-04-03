@@ -3,6 +3,7 @@ using Driver.Domain.Interfaces.Services;
 using Driver.Domain.Models.Base;
 using Driver.Domain.Models.Input;
 using Driver.Domain.Models.Output;
+using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
@@ -74,12 +75,14 @@ namespace Driver.Infrastructure.Services
                     var message = Encoding.UTF8.GetString(body);
                     var input = JsonSerializer.Deserialize<PushNotificationInput>(message);
 
-                    //TODO - CRIAR PROC PARA ATUALIZAR PEDIDOS
-                    //using (var dbConnection = new SqlConnection(_connectionString))
-                    //{
-                    //    string sql = "INSERT INTO Pedidos (RentID, Title, Description) VALUES (@RentID, @Title, @Description)";
-                    //    dbConnection.Execute(sql, input);
-                    //}
+                    _logRepository.CreateLog(new CreateLogInput
+                    {
+                        MethodName = "ConsumeAvailableOrders",
+                        Message = "verificando input de ConsumeAvailableOrders",
+                        StackMessage = message,
+                        Type = "Info"
+                    });
+
                 };
                 channel.BasicConsume(queue: "disponible_order",
                                      autoAck: true,
@@ -89,7 +92,38 @@ namespace Driver.Infrastructure.Services
 
         public CreateDeliveryOrderOutput CreateDeliveryOrder(CreateDeliveryOrderInputModel input)
         {
-            return _deliveryRepository.CreateDeliveryOrder(input);
+            var response = new CreateDeliveryOrderOutput();
+
+            response = _deliveryRepository.CreateDeliveryOrder(input);
+
+            if (response.OrderID != null)
+            {
+                var availableDrivers = _deliveryRepository.GetAvailableDrivers(input.UserId);
+
+                if (availableDrivers.Rents.Count > 0)
+                {
+                    var rabbit = new PushNotificationInput();
+
+                    var list = new List<RentItem>();
+
+                    foreach (var rent in availableDrivers.Rents)
+                    {
+                        list.Add(new RentItem
+                        {
+                            RentID = rent.RentID
+                        });
+                    }
+
+                    rabbit.Rents = list;
+                    rabbit.Title = input.Title;
+                    rabbit.Description = input.Description;
+                    rabbit.OrderId = response.OrderID;
+
+                    PushNotification(rabbit);
+                }
+            }
+
+            return response;
         }
     }
 }

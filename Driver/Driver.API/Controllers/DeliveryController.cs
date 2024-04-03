@@ -21,17 +21,18 @@ namespace Driver.API.Controllers
         {
             var rabbit = new PushNotificationInput
             {
-                RentID = Guid.NewGuid(),
+                Rents = new List<RentItem> { new RentItem { RentID = Guid.NewGuid() } },
                 Title = "Novo pedido disponível",
-                Description = "Um novo pedido está disponível para entrega."
+                Description = "Um novo pedido está disponível para entrega.",
+                OrderId = new Guid("2506519c-a134-4bb5-a3ad-1753d6b60a77")
             };
             var result = _deliveryService.PushNotification(rabbit);
 
             // Para consumir os pedidos disponíveis:
-            _deliveryService.ConsumeAvailableOrders();
+            //_deliveryService.ConsumeAvailableOrders();
 
             //var result = _deliveryService.PushNotification(input);
-            return Ok(result);
+            return Ok();
         }
 
 
