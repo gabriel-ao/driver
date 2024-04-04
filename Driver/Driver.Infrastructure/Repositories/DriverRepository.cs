@@ -153,5 +153,48 @@ namespace Driver.Infrastructure.Repositories
                 _connection.CloseConnection();
             }
         }
+
+        public BaseOutput UpdateCNH(string urlImage, Guid userId)
+        {
+            var response = new BaseOutput();
+
+            var QUERY = $"SELECT * FROM \"public\".\"DRV_Update_CNH\"(" +
+                $"'{urlImage}', " +
+                $"'{userId}')";
+
+            try
+            {
+                _logRepository.CreateLog(new CreateLogInput
+                {
+                    MethodName = "Driver/Update/CNH",
+                    Message = "verificando input de UpdateRent",
+                    StackMessage = "urlImage: " + JsonConvert.SerializeObject(urlImage) + " - userId: " + JsonConvert.SerializeObject(userId),
+                    Type = "Info"
+                });
+
+                var connection = _connection.GetConnection;
+                response = connection.QueryFirstOrDefault<BaseOutput>(QUERY);
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logRepository.CreateLog(new CreateLogInput
+                {
+                    MethodName = "Driver/Update/CNH",
+                    Message = JsonConvert.SerializeObject(ex.Message).Replace("'", "´"),
+                    StackMessage = JsonConvert.SerializeObject(ex.Message).Replace("'", "´"),
+                    Type = "Error"
+                });
+
+                response.Error = true;
+                response.Message = ex.Message;
+                return response;
+            }
+            finally
+            {
+                _connection.CloseConnection();
+            }
+        }
     }
 }
