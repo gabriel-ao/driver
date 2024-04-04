@@ -66,13 +66,12 @@ namespace Driver.Infrastructure.Repositories
             }
         }
 
-
-        public GetAvailableDriversOutput GetAvailableDrivers(Guid UserId)
+        public GetAvailableDriversOutput GetAvailableDrivers(Guid userId)
         {
             var response = new GetAvailableDriversOutput();
 
             var QUERY = $"SELECT * FROM \"public\".\"ADM_Get_Available_Drivers\"(" +
-                $"'{UserId}')";
+                $"'{userId}')";
 
             try
             {
@@ -102,5 +101,40 @@ namespace Driver.Infrastructure.Repositories
             }
         }
 
+        public GetOrderNotificationsOutput GetOrderNotifications(Guid orderId, Guid userId)
+        {
+            var response = new GetOrderNotificationsOutput();
+
+            var QUERY = $"SELECT * FROM \"public\".\"ADM_Get_Order_Notifications\"(" +
+                $"'{orderId}', " +
+                $"'{userId}')";
+
+            try
+            {
+                var connection = _connection.GetConnection;
+                var result = connection.Query<NotificationDriverItem>(QUERY).ToList();
+                response.Notifications = result;
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logRepository.CreateLog(new CreateLogInput
+                {
+                    MethodName = $"Notifications/{orderId}",
+                    Message = JsonConvert.SerializeObject(ex.Message).Replace("'", "´"),
+                    StackMessage = JsonConvert.SerializeObject(ex.Message).Replace("'", "´"),
+                    Type = "Error"
+                });
+
+                response.Error = true;
+                response.Message = ex.Message;
+                return response;
+            }
+            finally
+            {
+                _connection.CloseConnection();
+            }
+        }
     }
 }

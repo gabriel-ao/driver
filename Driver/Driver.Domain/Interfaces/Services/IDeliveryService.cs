@@ -9,5 +9,6 @@ namespace Driver.Domain.Interfaces.Services
         BaseOutput PushNotification(PushNotificationInput input);
         void ConsumeAvailableOrders();
         CreateDeliveryOrderOutput CreateDeliveryOrder(CreateDeliveryOrderInputModel input);
+        GetOrderNotificationsOutput GetOrderNotifications(Guid orderId, Guid userId);
     }
 }

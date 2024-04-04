@@ -7,5 +7,6 @@ namespace Driver.Domain.Interfaces.Repositories
     {
         CreateDeliveryOrderOutput CreateDeliveryOrder(CreateDeliveryOrderInputModel input);
         GetAvailableDriversOutput GetAvailableDrivers(Guid UserId);
+        GetOrderNotificationsOutput GetOrderNotifications(Guid orderId, Guid userId);
     }
 }

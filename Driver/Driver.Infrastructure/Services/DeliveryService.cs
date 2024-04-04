@@ -125,5 +125,10 @@ namespace Driver.Infrastructure.Services
 
             return response;
         }
+
+        public GetOrderNotificationsOutput GetOrderNotifications(Guid orderId, Guid userId)
+        {
+            return _deliveryRepository.GetOrderNotifications(orderId, userId);
+        }
     }
 }

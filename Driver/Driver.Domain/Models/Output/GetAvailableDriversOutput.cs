@@ -21,6 +21,4 @@ namespace Driver.Domain.Models.Output
     {
         public Guid RentID { get; set; }
     }
-
-
 }
