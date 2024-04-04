@@ -47,9 +47,8 @@ namespace Driver.Infrastructure.Services
                                      body: body);
             }
 
-            return new BaseOutput { Error = false, Message = "Notificação enviada com sucesso." };
+            return new BaseOutput { Error = false, Message = "" };
         }
-
 
         public void ConsumeAvailableOrders()
         {

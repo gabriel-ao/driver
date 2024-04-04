@@ -17,7 +17,7 @@ namespace Driver.API.Controllers
             _deliveryService = deliveryService;
         }
 
-        [HttpPost("PushNotification")]
+        [HttpPost("Test/PushNotification")]
         public ActionResult<BaseOutput> PushNotification(PushNotificationInput input)
         {
             var rabbit = new PushNotificationInput
@@ -29,11 +29,13 @@ namespace Driver.API.Controllers
             };
             var result = _deliveryService.PushNotification(rabbit);
 
-            // Para consumir os pedidos disponíveis:
-            //_deliveryService.ConsumeAvailableOrders();
-
-            //var result = _deliveryService.PushNotification(input);
             return Ok();
+        }
+
+        [HttpPost("Test/ConsumeAvailableOrders")]
+        public void ConsumeAvailableOrders()
+        {
+            _deliveryService.ConsumeAvailableOrders();
         }
 
         [HttpPost("Create")]
