@@ -50,45 +50,6 @@ namespace Driver.Infrastructure.Services
             return new BaseOutput { Error = false, Message = "" };
         }
 
-        public void ConsumeAvailableOrders()
-        {
-            var factory = new ConnectionFactory()
-            {
-                HostName = "localhost",
-                UserName = "guest",
-                Password = "guest"
-            };
-            using (var connection = factory.CreateConnection())
-            using (var channel = connection.CreateModel())
-            {
-                channel.QueueDeclare(queue: "disponible_order",
-                                     durable: false,
-                                     exclusive: false,
-                                     autoDelete: false,
-                                     arguments: null);
-
-                var consumer = new EventingBasicConsumer(channel);
-                consumer.Received += (model, ea) =>
-                {
-                    var body = ea.Body.ToArray();
-                    var message = Encoding.UTF8.GetString(body);
-                    var input = JsonSerializer.Deserialize<PushNotificationInput>(message);
-
-                    _logRepository.CreateLog(new CreateLogInput
-                    {
-                        MethodName = "ConsumeAvailableOrders",
-                        Message = "verificando input de ConsumeAvailableOrders",
-                        StackMessage = message,
-                        Type = "Info"
-                    });
-
-                };
-                channel.BasicConsume(queue: "disponible_order",
-                                     autoAck: true,
-                                     consumer: consumer);
-            }
-        }
-
         public CreateDeliveryOrderOutput CreateDeliveryOrder(CreateDeliveryOrderInputModel input)
         {
             var response = new CreateDeliveryOrderOutput();

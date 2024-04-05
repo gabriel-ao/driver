@@ -16,27 +16,6 @@ namespace Driver.API.Controllers
             _deliveryService = deliveryService;
         }
 
-        [HttpPost("Test/PushNotification")]
-        public ActionResult<BaseOutput> PushNotification(PushNotificationInput input)
-        {
-            var rabbit = new PushNotificationInput
-            {
-                Rents = new List<RentItem> { new RentItem { RentID = Guid.NewGuid() } },
-                Title = "Novo pedido disponível",
-                Description = "Um novo pedido está disponível para entrega.",
-                OrderId = new Guid("2506519c-a134-4bb5-a3ad-1753d6b60a77")
-            };
-            var result = _deliveryService.PushNotification(rabbit);
-
-            return Ok();
-        }
-
-        [HttpPost("Test/ConsumeAvailableOrders")]
-        public void ConsumeAvailableOrders()
-        {
-            _deliveryService.ConsumeAvailableOrders();
-        }
-
         [HttpPost("Create")]
         public ActionResult<CreateDeliveryOrderOutput> CreateDeliveryOrder(CreateDeliveryOrderInput input)
         {
