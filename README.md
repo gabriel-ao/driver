@@ -15,14 +15,16 @@ O Projeto Driver é uma aplicação desenvolvida para facilitar o processo de al
 Para começar a utilizar o Projeto Driver, siga estas etapas simples:
 
 1. **Configuração do Ambiente:**
-   - Certifique-se de ter o PostgreSQL instalado em sua máquina.
+   - Certifique-se de ter o [docker](https://docs.docker.com/desktop/install/windows-install/) instalado em sua máquina.
    - Clone este repositório em seu ambiente de desenvolvimento.
+   - Execute o docker-compose na pasta raiz do seu projeto, você pode encontra-lo [aqui](https://github.com/gabriel-ao/driver/blob/main/Driver/docker-compose.yml)
 
 2. **Configuração do Banco de Dados:**
    - Siga as instruções fornecidas na seção "Configuração do Banco de Dados" no arquivo README.md para configurar o banco de dados e as tabelas necessárias.
 
 3. **Execução do Projeto:**
    - Utilize o Visual Studio ou a linha de comando para iniciar o projeto. Certifique-se de ter o .NET 6 SDK instalado em sua máquina.
+
 
 # Configuração do Banco de Dados
 
@@ -36,10 +38,268 @@ Siga os passos abaixo para configurar o ambiente do banco de dados:
     string connectionString = "Host=localhost;Port=<PORTA_POSTGRES>;Database=driver;User Id=<USER_NAME>;Password=<PASSWORD>;";
 
 2. **Criação das Tabelas:**
-   - Execute o script inicial para criar todas as tabelas necessárias. Você pode encontrá-lo [aqui](https://github.com/gabriel-ao/driver/blob/main/Driver/database/script.sql).
+   - Execute o script inicial para criar todas as tabelas necessárias. Você pode encontrá-lo [neste diretório](https://github.com/gabriel-ao/driver/blob/main/Driver/database/driver-db/scripts/initial-driver-db.sql).
 
 3. **Implementação de Lógicas e Validações:**
-   - Utilize os scripts de funções para adicionar lógica e validações ao banco de dados. Eles estão disponíveis [neste diretório](https://github.com/gabriel-ao/driver/tree/main/Driver/database/functions).
+   - Utilize os scripts de funções para adicionar lógica e validações ao banco de dados. Eles estão disponíveis [neste diretório](https://github.com/gabriel-ao/driver/tree/main/Driver/database/driver-db/functions).
 
 Certifique-se de executar esses passos na ordem apresentada para garantir que o ambiente do banco de dados seja configurado corretamente e todas as funcionalidades estejam disponíveis para a aplicação.
 
+
+## Documentação de API
+
+## Backend: Driver
+## Base rota: /Vehicle
+
+### **POST**: Criar um novo veículo
+
+```http
+POST /Vehicle/Create
+Content-Type: application/json
+
+request
+{
+  "year": 0,
+  "model": "string",
+  "plate": "string"
+}
+
+response {
+  "message": "string",
+  "error": true
+}
+
+```
+
+### **Get**: listar veículos
+
+#### Parâmetros de entrada
+- `plate` (opcional): Filtra os veículos.
+
+```http
+Get /Vehicle/Get
+Content-Type: application/json
+
+response {
+  "message": "string",
+  "error": true,
+  "vehicles": [
+    {
+      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "year": 0,
+      "model": "string",
+      "plate": "string",
+      "status": "string",
+      "driver": "string"
+    }
+  ]
+}
+```
+
+
+
+### **PUT**: Atualizar a placa do veículo
+
+```http
+PUT /Vehicle/Update
+Content-Type: application/json
+
+request {
+  "newPlate": "string",
+  "vehicleId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+}
+
+response {
+  "message": "string",
+  "error": true
+}
+
+```
+
+### **DEL**: remover um veículo
+
+```http
+DEL /Vehicle/Delete
+Content-Type: application/json
+
+request {
+  "vehicleId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+}
+
+response {
+  "message": "string",
+  "error": true
+}
+
+```
+
+
+
+## Backend: Driver
+## Base rota: /Delivery
+
+### **POST**: Criar um novo pedido
+
+```http
+POST /Delivery/Create
+Content-Type: application/json
+
+request {
+  "title": "string",
+  "description": "string",
+  "price": 0
+}
+
+response {
+  "message": "string",
+  "error": true
+}
+
+```
+
+### **Get**: listar notificações de pedidos
+
+#### Parâmetros de entrada
+- `orderId`: listar motoristas notificados por esse pedido.
+
+```http
+Get /Vehicle/Get
+Content-Type: application/json
+
+response {
+  "message": "string",
+  "error": true,
+  "vehicles": [
+    {
+      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "year": 0,
+      "model": "string",
+      "plate": "string",
+      "status": "string",
+      "driver": "string"
+    }
+  ]
+}
+```
+## Backend: Driver
+## Base rota: /Driver
+
+### **POST**: Criar um novo motorista
+
+```http
+POST /Driver/Create
+Content-Type: application/json
+
+request {
+  "firstName": "string",
+  "lastName": "string",
+  "cnpj": "string",
+  "birthDate": "2024-04-05T03:16:58.913Z",
+  "cnhNumber": "string",
+  "cnhID": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "password": "string"
+}
+
+response {
+  "message": "string",
+  "error": true
+}
+
+```
+
+
+### **POST**: Criar uma nova reserva
+
+```http
+POST /Driver/Create/Rent
+Content-Type: application/json
+
+request {
+  "planId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+}
+
+response {
+  "message": "string",
+  "error": true,
+  "rentId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+}
+
+```
+
+
+### **Put**: Atualizar uma nova reserva
+
+#### Parâmetros de entrada
+- `orderId`: listar motoristas notificados por esse pedido.
+
+```http
+POST /Driver/Update/Rent
+Content-Type: application/json
+
+request {
+  "previousDate": "2024-04-05T03:19:03.146Z",
+  "rentId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+}
+
+response {
+  "message": "string",
+  "error": true,
+  "finishDate": "2024-04-05T03:19:03.153Z",
+  "price": 0
+}
+
+```
+
+
+
+### **Put**: atualização de CNH
+
+#### Parâmetros de entrada
+- `documentImage`: Adiciona um arquivo de imagem para salvar a CNH do motorista.
+
+```http
+Put /Driver/Update/CNH
+Content-Type: application/json
+
+response {
+  "message": "string",
+  "error": true,
+}
+```
+
+
+
+### **POST**: Aceitar um novo pedido de entrega
+
+```http
+POST /Driver/AcceptDeliveryOrder
+Content-Type: application/json
+
+request {
+  "orderId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+}
+
+response {
+  "message": "string",
+  "error": true
+}
+
+```
+
+
+### **PUT**: Finalizar o pedido
+
+```http
+PUT /Driver/FinishDeliveryOrder
+Content-Type: application/json
+
+request {
+  "orderId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+}
+
+response {
+  "message": "string",
+  "error": true
+}
+
+```

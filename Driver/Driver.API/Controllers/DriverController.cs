@@ -59,7 +59,7 @@ namespace Driver.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost("Update/CNH")]
+        [HttpPut("Update/CNH")]
         public async Task<IActionResult> UpdateCNH(IFormFile documentImage)
         {
             var response = new SaveDocumentImageOutput();
