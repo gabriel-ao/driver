@@ -53,7 +53,7 @@ Certifique-se de executar esses passos na ordem apresentada para garantir que o 
 
 ### **POST**: Criar um novo veículo
 
-```http
+```json
 POST /Vehicle/Create
 Content-Type: application/json
 
@@ -76,7 +76,7 @@ response {
 #### Parâmetros de entrada
 - `plate` (opcional): Filtra os veículos.
 
-```http
+```json
 Get /Vehicle/Get
 Content-Type: application/json
 
@@ -100,7 +100,7 @@ response {
 
 ### **PUT**: Atualizar a placa do veículo
 
-```http
+```json
 PUT /Vehicle/Update
 Content-Type: application/json
 
@@ -118,7 +118,7 @@ response {
 
 ### **DEL**: remover um veículo
 
-```http
+```json
 DEL /Vehicle/Delete
 Content-Type: application/json
 
@@ -140,7 +140,7 @@ response {
 
 ### **POST**: Criar um novo pedido
 
-```http
+```json
 POST /Delivery/Create
 Content-Type: application/json
 
@@ -162,7 +162,7 @@ response {
 #### Parâmetros de entrada
 - `orderId`: listar motoristas notificados por esse pedido.
 
-```http
+```json
 Get /Vehicle/Get
 Content-Type: application/json
 
@@ -186,7 +186,7 @@ response {
 
 ### **POST**: Criar um novo motorista
 
-```http
+```json
 POST /Driver/Create
 Content-Type: application/json
 
@@ -210,7 +210,7 @@ response {
 
 ### **POST**: Criar uma nova reserva
 
-```http
+```json
 POST /Driver/Create/Rent
 Content-Type: application/json
 
@@ -232,7 +232,7 @@ response {
 #### Parâmetros de entrada
 - `orderId`: listar motoristas notificados por esse pedido.
 
-```http
+```json
 POST /Driver/Update/Rent
 Content-Type: application/json
 
@@ -257,7 +257,7 @@ response {
 #### Parâmetros de entrada
 - `documentImage`: Adiciona um arquivo de imagem para salvar a CNH do motorista.
 
-```http
+```json
 Put /Driver/Update/CNH
 Content-Type: application/json
 
@@ -271,7 +271,7 @@ response {
 
 ### **POST**: Aceitar um novo pedido de entrega
 
-```http
+```json
 POST /Driver/AcceptDeliveryOrder
 Content-Type: application/json
 
@@ -289,7 +289,7 @@ response {
 
 ### **PUT**: Finalizar o pedido
 
-```http
+```json
 PUT /Driver/FinishDeliveryOrder
 Content-Type: application/json
 
