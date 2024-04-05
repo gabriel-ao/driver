@@ -18,6 +18,7 @@ DECLARE
     "CalcDays" numeric;
     "PricePlan" numeric;
     "DayPlan" numeric;
+    "PercentagePlan" numeric;
 	"trafficTicket" numeric := 50;
 	planid uuid;
     "Message" character varying := '';
@@ -61,10 +62,13 @@ BEGIN
 				
     			"DayPlan" := (SELECT TP."Days" FROM temp_plan AS TP);
 				"PricePlan" := (SELECT TP."Price" FROM temp_plan AS TP);
-				
-				"DayPlan" := CASE WHEN "DayPlan" = 7 THEN 20 WHEN "DayPlan" = 15 THEN 40 WHEN "DayPlan" = 30 THEN 60 END; -- CHANGE PERCENTAGEM
 
-				"Price" := ROUND(("Price" + (("DayPlan" / 100.0) * ("PricePlan" * "CalcDays"))), 2);
+				"PercentagePlan" := CASE WHEN "DayPlan" = 7 THEN 20 WHEN "DayPlan" = 15 THEN 40 WHEN "DayPlan" = 30 THEN 60 END; -- CHANGE PERCENTAGEM
+				"DayPlan" := ("DayPlan" - "CalcDays");
+
+				"Price" := ("DayPlan" * "PricePlan");
+	
+				"Price" := ROUND(("Price" + (("PercentagePlan" / 100.0) * ("PricePlan" * "CalcDays"))), 2);
 				"FinishDate" := previousrent;
 
 			ELSE 
