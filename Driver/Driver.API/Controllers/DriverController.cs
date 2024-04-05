@@ -1,7 +1,9 @@
-﻿using Driver.Domain.Interfaces.Services;
+﻿using Driver.Domain.Helpers;
+using Driver.Domain.Interfaces.Services;
 using Driver.Domain.Models.Base;
 using Driver.Domain.Models.Input;
 using Driver.Domain.Models.Output;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Drawing;
 
@@ -26,15 +28,19 @@ namespace Driver.API.Controllers
             return Ok(result);
         }
 
-
+        [Authorize("Bearer")]
         [HttpPost("Create/Rent")]
         public ActionResult<CreateRentOutput> CreateRent(CreateRentInput input)
         {
 
+            var token = Request.Headers["Authorization"].ToString();
+            token = token.Replace("Bearer ", "").Replace("bearer ", "");
+            var userId = TokenHelper.GetUserId(token);
+
             var inputModel = new CreateRentInputModel()
             {
                 PlanId = input.PlanId,
-                UserId = new Guid("6db6a464-fb46-47be-8555-4f3751229e63") // motorista gabriel
+                UserId = userId
             };
 
             var result = _driverService.CreateRent(inputModel);
@@ -42,16 +48,19 @@ namespace Driver.API.Controllers
             return Ok(result);
         }
 
-
+        [Authorize("Bearer")]
         [HttpPut("Update/Rent")]
         public ActionResult<UpdateRentOutput> UpdateRent(UpdateRentInput input)
         {
-            //TODO - PASSAR TOKEN
+            var token = Request.Headers["Authorization"].ToString();
+            token = token.Replace("Bearer ", "").Replace("bearer ", "");
+            var userId = TokenHelper.GetUserId(token);
+
             var inputModel = new UpdateRentInputModel()
             {
                 PreviousDate = input.PreviousDate,
                 RentId = input.RentId,
-                UserId = new Guid("3984508a-d787-4c66-b761-adc98083c5c1") // motorista gabriel
+                UserId = userId
             };
 
             var result = _driverService.UpdateRent(inputModel);
@@ -59,11 +68,15 @@ namespace Driver.API.Controllers
             return Ok(result);
         }
 
+        [Authorize("Bearer")]
         [HttpPut("Update/CNH")]
         public async Task<IActionResult> UpdateCNH(IFormFile documentImage)
         {
+            var token = Request.Headers["Authorization"].ToString();
+            token = token.Replace("Bearer ", "").Replace("bearer ", "");
+            var userId = TokenHelper.GetUserId(token);
+
             var response = new SaveDocumentImageOutput();
-            var userId = new Guid("6db6a464-fb46-47be-8555-4f3751229e63"); // motorista gabriel
 
             var result = await SaveDocumentImage(documentImage, userId);
 
@@ -79,8 +92,6 @@ namespace Driver.API.Controllers
                 response.Error = result.Error;
                 response.Message = result.Message;
             }
-
-
 
             return Ok(response);
         }
@@ -141,16 +152,18 @@ namespace Driver.API.Controllers
             }
         }
 
-
-
+        [Authorize("Bearer")]
         [HttpPost("AcceptDeliveryOrder")]
         public ActionResult<BaseOutput> AcceptDeliveryOrder(AcceptDeliveryOrderInput input)
         {
-            //TODO - PASSAR TOKEN
+            var token = Request.Headers["Authorization"].ToString();
+            token = token.Replace("Bearer ", "").Replace("bearer ", "");
+            var userId = TokenHelper.GetUserId(token);
+
             var inputModel = new AcceptDeliveryOrderInputModel()
             {
                 OrderId = input.OrderId,
-                UserId = new Guid("3984508a-d787-4c66-b761-adc98083c5c1") // motorista gabriel
+                UserId = userId
             };
 
             var result = _driverService.AcceptDeliveryOrder(inputModel);
@@ -158,22 +171,24 @@ namespace Driver.API.Controllers
             return Ok(result);
         }
 
-
+        [Authorize("Bearer")]
         [HttpPut("FinishDeliveryOrder")]
         public ActionResult<BaseOutput> FinishDeliveryOrder(FinishDeliveryOrderInput input)
         {
-            //TODO - PASSAR TOKEN
+            var token = Request.Headers["Authorization"].ToString();
+            token = token.Replace("Bearer ", "").Replace("bearer ", "");
+            var userId = TokenHelper.GetUserId(token);
+
             var inputModel = new FinishDeliveryOrderInputModel()
             {
                 OrderId = input.OrderId,
-                UserId = new Guid("3984508a-d787-4c66-b761-adc98083c5c1") // motorista gabriel
+                UserId = userId
             };
 
             var result = _driverService.FinishDeliveryOrder(inputModel);
 
             return Ok(result);
         }
-
 
     }
 }

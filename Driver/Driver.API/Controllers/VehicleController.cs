@@ -1,8 +1,11 @@
-﻿using Driver.Domain.Interfaces.Services;
+﻿using Driver.Domain.Helpers;
+using Driver.Domain.Interfaces.Services;
 using Driver.Domain.Models.Base;
 using Driver.Domain.Models.Input;
 using Driver.Domain.Models.Output;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Driver.API.Controllers
 {
@@ -16,16 +19,20 @@ namespace Driver.API.Controllers
             _vehicleService = vehicleService;
         }
 
+        [Authorize("Bearer")]
         [HttpPost("Create")]
         public ActionResult<BaseOutput> CreateVehicle(CreateVehicleInput input)
         {
+            var token = Request.Headers["Authorization"].ToString();
+            token = token.Replace("Bearer ", "").Replace("bearer ", "");
+            var userId = TokenHelper.GetUserId(token);
 
             var inputModel = new CreateVehicleInputModel()
             {
                 Year = input.Year,
                 Model = input.Model,
                 Plate = input.Plate.Replace(".", "").Replace("-", "").Replace(" ", ""),
-                UserId = new Guid("2506519c-a134-4bb5-a3ad-1753d6b60a77")
+                UserId = userId
             };
 
             var result = _vehicleService.CreateVehicle(inputModel);
@@ -33,16 +40,21 @@ namespace Driver.API.Controllers
             return Ok(result);
         }
 
+        [Authorize("Bearer")]
         [HttpGet("Get")]
         public ActionResult<GetVehicleOutput> GetVehicle(string? plate)
         {
 
-            if(string.IsNullOrEmpty(plate)) plate = "";
+            var token = Request.Headers["Authorization"].ToString();
+            token = token.Replace("Bearer ", "").Replace("bearer ", "");
+            var userId = TokenHelper.GetUserId(token);
+
+            if (string.IsNullOrEmpty(plate)) plate = "";
 
             var inputModel = new GetVehicleInputModel()
             {
                 Plate = plate.Replace(".", "").Replace("-", "").Replace(" ", ""),
-                UserId = new Guid("2506519c-a134-4bb5-a3ad-1753d6b60a77")
+                UserId = userId
             };
 
             var result = _vehicleService.GetVehicle(inputModel);
@@ -50,15 +62,20 @@ namespace Driver.API.Controllers
             return Ok(result);
         }
 
+        [Authorize("Bearer")]
         [HttpPut("Update")]
         public ActionResult<BaseOutput> UpdateVehicle(UpdateVehicleInput input)
         {
+
+            var token = Request.Headers["Authorization"].ToString();
+            token = token.Replace("Bearer ", "").Replace("bearer ", "");
+            var userId = TokenHelper.GetUserId(token);
 
             var inputModel = new UpdateVehicleInputModel()
             {
                 NewPlate= input.NewPlate.Replace(".", "").Replace("-", "").Replace(" ", ""),
                 VehicleId = input.VehicleId,
-                UserId = new Guid("2506519c-a134-4bb5-a3ad-1753d6b60a77")
+                UserId = userId
             };
 
             var result = _vehicleService.UpdateVehicle(inputModel);
@@ -66,13 +83,19 @@ namespace Driver.API.Controllers
             return Ok(result);
         }
 
+        [Authorize("Bearer")]
         [HttpDelete("Detele")]
         public ActionResult<BaseOutput> DeteleVehicle(DeleteVehicleInput input)
         {
+
+            var token = Request.Headers["Authorization"].ToString();
+            token = token.Replace("Bearer ", "").Replace("bearer ", "");
+            var userId = TokenHelper.GetUserId(token);
+
             var inputModel = new DeleteVehicleInputModel()
             {
                 VehicleId = input.VehicleId,
-                UserId = new Guid("2506519c-a134-4bb5-a3ad-1753d6b60a77")
+                UserId = userId
             };
 
             var result = _vehicleService.DeleteVehicle(inputModel);

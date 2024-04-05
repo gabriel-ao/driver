@@ -1,7 +1,9 @@
-﻿using Driver.Domain.Interfaces.Services;
+﻿using Driver.Domain.Helpers;
+using Driver.Domain.Interfaces.Services;
 using Driver.Domain.Models.Base;
 using Driver.Domain.Models.Input;
 using Driver.Domain.Models.Output;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Driver.API.Controllers
@@ -16,15 +18,21 @@ namespace Driver.API.Controllers
             _deliveryService = deliveryService;
         }
 
+        [Authorize("Bearer")]
         [HttpPost("Create")]
         public ActionResult<CreateDeliveryOrderOutput> CreateDeliveryOrder(CreateDeliveryOrderInput input)
         {
+
+            var token = Request.Headers["Authorization"].ToString();
+            token = token.Replace("Bearer ", "").Replace("bearer ", "");
+            var userId = TokenHelper.GetUserId(token);
+
             var inputModel = new CreateDeliveryOrderInputModel()
             {
                 Title = input.Title,
                 Description = input.Description,
                 Price = input.Price,
-                UserId = new Guid("2506519c-a134-4bb5-a3ad-1753d6b60a77")
+                UserId = userId
             };
 
             var result = _deliveryService.CreateDeliveryOrder(inputModel);
@@ -32,10 +40,13 @@ namespace Driver.API.Controllers
             return Ok(result);
         }
 
+        [Authorize("Bearer")]
         [HttpGet("Notifications/{orderId}")]
         public ActionResult<GetOrderNotificationsOutput> GetOrderNotifications(Guid orderId)
         {
-            var userId = new Guid("2506519c-a134-4bb5-a3ad-1753d6b60a77");
+            var token = Request.Headers["Authorization"].ToString();
+            token = token.Replace("Bearer ", "").Replace("bearer ", "");
+            var userId = TokenHelper.GetUserId(token);
 
             var result = _deliveryService.GetOrderNotifications(orderId, userId);
 
