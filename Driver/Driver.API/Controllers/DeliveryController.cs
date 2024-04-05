@@ -2,7 +2,6 @@
 using Driver.Domain.Models.Base;
 using Driver.Domain.Models.Input;
 using Driver.Domain.Models.Output;
-using Driver.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Driver.API.Controllers

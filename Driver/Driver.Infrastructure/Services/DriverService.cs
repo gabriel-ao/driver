@@ -3,6 +3,7 @@ using Driver.Domain.Interfaces.Services;
 using Driver.Domain.Models.Base;
 using Driver.Domain.Models.Input;
 using Driver.Domain.Models.Output;
+using Driver.Infrastructure.Repositories;
 
 namespace Driver.Infrastructure.Services
 {
@@ -46,6 +47,16 @@ namespace Driver.Infrastructure.Services
         public BaseOutput UpdateCNH(string urlImage, Guid userId)
         {
             return _driverRepository.UpdateCNH(urlImage, userId);
+        }
+
+        public BaseOutput AcceptDeliveryOrder(AcceptDeliveryOrderInputModel input)
+        {
+            return _driverRepository.AcceptDeliveryOrder(input);
+        }
+
+        public BaseOutput FinishDeliveryOrder(FinishDeliveryOrderInputModel input)
+        {
+            return _driverRepository.FinishDeliveryOrder(input);
         }
     }
 }

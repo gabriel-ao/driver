@@ -142,5 +142,38 @@ namespace Driver.API.Controllers
         }
 
 
+
+        [HttpPost("AcceptDeliveryOrder")]
+        public ActionResult<BaseOutput> AcceptDeliveryOrder(AcceptDeliveryOrderInput input)
+        {
+            //TODO - PASSAR TOKEN
+            var inputModel = new AcceptDeliveryOrderInputModel()
+            {
+                OrderId = input.OrderId,
+                UserId = new Guid("3984508a-d787-4c66-b761-adc98083c5c1") // motorista gabriel
+            };
+
+            var result = _driverService.AcceptDeliveryOrder(inputModel);
+
+            return Ok(result);
+        }
+
+
+        [HttpPut("FinishDeliveryOrder")]
+        public ActionResult<BaseOutput> FinishDeliveryOrder(FinishDeliveryOrderInput input)
+        {
+            //TODO - PASSAR TOKEN
+            var inputModel = new FinishDeliveryOrderInputModel()
+            {
+                OrderId = input.OrderId,
+                UserId = new Guid("3984508a-d787-4c66-b761-adc98083c5c1") // motorista gabriel
+            };
+
+            var result = _driverService.FinishDeliveryOrder(inputModel);
+
+            return Ok(result);
+        }
+
+
     }
 }

@@ -196,5 +196,75 @@ namespace Driver.Infrastructure.Repositories
                 _connection.CloseConnection();
             }
         }
+
+        public BaseOutput AcceptDeliveryOrder(AcceptDeliveryOrderInputModel input)
+        {
+            var response = new BaseOutput();
+
+            var QUERY = $"SELECT * FROM \"public\".\"DRV_Accept_Delivery_Order\"(" +
+                $"'{input.OrderId}', " +
+                $"'{input.UserId}')";
+
+            try
+            {
+                var connection = _connection.GetConnection;
+                response = connection.QueryFirstOrDefault<BaseOutput>(QUERY);
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logRepository.CreateLog(new CreateLogInput
+                {
+                    MethodName = "",
+                    Message = JsonConvert.SerializeObject(ex.Message).Replace("'", "´"),
+                    StackMessage = JsonConvert.SerializeObject(ex.Message).Replace("'", "´"),
+                    Type = "Error"
+                });
+
+                response.Error = true;
+                response.Message = ex.Message;
+                return response;
+            }
+            finally
+            {
+                _connection.CloseConnection();
+            }
+        }
+
+        public BaseOutput FinishDeliveryOrder(FinishDeliveryOrderInputModel input)
+        {
+            var response = new BaseOutput();
+
+            var QUERY = $"SELECT * FROM \"public\".\"DRV_Finish_Delivery_Order\"(" +
+                $"'{input.OrderId}', " +
+                $"'{input.UserId}')";
+
+            try
+            {
+                var connection = _connection.GetConnection;
+                response = connection.QueryFirstOrDefault<BaseOutput>(QUERY);
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logRepository.CreateLog(new CreateLogInput
+                {
+                    MethodName = "",
+                    Message = JsonConvert.SerializeObject(ex.Message).Replace("'", "´"),
+                    StackMessage = JsonConvert.SerializeObject(ex.Message).Replace("'", "´"),
+                    Type = "Error"
+                });
+
+                response.Error = true;
+                response.Message = ex.Message;
+                return response;
+            }
+            finally
+            {
+                _connection.CloseConnection();
+            }
+        }
     }
 }

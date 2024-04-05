@@ -10,5 +10,8 @@ namespace Driver.Domain.Interfaces.Services
         CreateRentOutput CreateRent(CreateRentInputModel input);
         UpdateRentOutput UpdateRent(UpdateRentInputModel input);
         BaseOutput UpdateCNH(string urlImage, Guid userId);
+
+        BaseOutput AcceptDeliveryOrder(AcceptDeliveryOrderInputModel input);
+        BaseOutput FinishDeliveryOrder(FinishDeliveryOrderInputModel input);
     }
 }
