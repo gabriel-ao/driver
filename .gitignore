@@ -10,3 +10,9 @@
 /Driver/Driver.Infrastructure/bin/Debug/net6.0
 /Driver.Notification/Driver.Notification/bin/Debug/net6.0
 /Driver.Notification/Driver.Notification/obj
+/Driver.Auth/Driver.Auth.API/bin/Debug/net6.0
+/Driver.Auth/Driver.Auth.API/obj
+/Driver.Auth/Driver.Auth.Domain/bin/Debug/net6.0
+/Driver.Auth/Driver.Auth.Domain/obj
+/Driver.Auth/Driver.Auth.Infrastructure/bin/Debug/net6.0
+/Driver.Auth/Driver.Auth.Infrastructure/obj
