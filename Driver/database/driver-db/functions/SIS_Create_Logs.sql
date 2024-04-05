@@ -1,8 +1,8 @@
--- FUNCTION: public.Create_Logs(character varying, character varying, character varying, character varying)
+-- FUNCTION: public.SIS_Create_Logs(character varying, character varying, character varying, character varying)
 
--- DROP FUNCTION IF EXISTS public."Create_Logs"(character varying, character varying, character varying, character varying);
+-- DROP FUNCTION IF EXISTS public."SIS_Create_Logs"(character varying, character varying, character varying, character varying);
 
-CREATE OR REPLACE FUNCTION public."Create_Logs"(
+CREATE OR REPLACE FUNCTION public."SIS_Create_Logs"(
 	methodname character varying,
 	message character varying,
 	stackmessage character varying,
@@ -30,5 +30,5 @@ BEGIN
 END;
 $BODY$;
 
-ALTER FUNCTION public."Create_Logs"(character varying, character varying, character varying, character varying)
+ALTER FUNCTION public."SIS_Create_Logs"(character varying, character varying, character varying, character varying)
     OWNER TO postgres;

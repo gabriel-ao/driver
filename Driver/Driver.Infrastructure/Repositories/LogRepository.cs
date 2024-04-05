@@ -18,7 +18,7 @@ namespace Driver.Infrastructure.Repositories
         {
             var response = new BaseOutput();
 
-            var QUERY = $"SELECT * FROM \"public\".\"Create_Logs\"(" +
+            var QUERY = $"SELECT * FROM \"public\".\"SIS_Create_Logs\"(" +
                 $"'{input.MethodName}', " +
                 $"'{input.Message}', " +
                 $"'{input.StackMessage}', " +

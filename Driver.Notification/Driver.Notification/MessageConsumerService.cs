@@ -115,7 +115,7 @@ namespace Driver.Notification
         {
             var response = new BaseOutput();
 
-            var QUERY = $"SELECT * FROM \"public\".\"Create_Logs\"(" +
+            var QUERY = $"SELECT * FROM \"public\".\"SIS_Create_Logs\"(" +
                 $"'{input.MethodName}', " +
                 $"'{input.Message}', " +
                 $"'{input.StackMessage}', " +
@@ -155,7 +155,7 @@ namespace Driver.Notification
                 };
                 rents += "}";
 
-                var QUERY = $"SELECT * FROM \"public\".\"Create_Delivery_Nofitication\"(" +
+                var QUERY = $"SELECT * FROM \"public\".\"SIS_Create_Delivery_Nofitication\"(" +
                     $"'{input.OrderId}', " +
                     $"'{input.Title}', " +
                     $"'{input.Description}', " +
