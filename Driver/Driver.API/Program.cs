@@ -29,12 +29,8 @@ builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 builder.Services.AddTransient<IDapperConnectionFactory, DapperConnectionFactory>();
 builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.AddScoped<ILogRepository, LogRepository>();
-builder.Services.AddScoped<IVehicleService, VehicleService>();
-builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 builder.Services.AddScoped<IDriverService, DriverService>();
 builder.Services.AddScoped<IDriverRepository, DriverRepository>();
-builder.Services.AddScoped<IDeliveryService, DeliveryService>();
-builder.Services.AddScoped<IDeliveryRepository, DeliveryRepository>();
 
 #endregion
 
@@ -89,7 +85,7 @@ builder.Services.AddSwaggerGen(options =>
     //options.DescribeAllEnumsAsStrings();
     options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
     {
-        Title = "Driver",
+        Title = "Driver - Motorista",
         Version = "v1"
     });
 
