@@ -12,5 +12,7 @@ namespace Driver.Domain.Interfaces.Repositories
         BaseOutput UpdateCNH(string urlImage, Guid userId);
         BaseOutput AcceptDeliveryOrder(AcceptDeliveryOrderInputModel input);
         BaseOutput FinishDeliveryOrder(FinishDeliveryOrderInputModel input);
+        CnhTypesOutput CnhTypes();
+        PlansOutput Plans();
     }
 }

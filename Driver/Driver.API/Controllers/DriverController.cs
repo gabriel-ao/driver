@@ -190,5 +190,24 @@ namespace Driver.API.Controllers
             return Ok(result);
         }
 
+
+        [Authorize("Bearer")]
+        [HttpGet("Cnh")]
+        public ActionResult<CnhTypesOutput> CnhTypes()
+        {
+            var result = _driverService.CnhTypes();
+
+            return Ok(result);
+        }
+
+        [Authorize("Bearer")]
+        [HttpGet("Plans")]
+        public ActionResult<PlansOutput> Plans()
+        {
+            var result = _driverService.Plans();
+
+            return Ok(result);
+        }
+
     }
 }

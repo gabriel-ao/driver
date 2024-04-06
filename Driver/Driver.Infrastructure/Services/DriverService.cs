@@ -56,5 +56,15 @@ namespace Driver.Infrastructure.Services
         {
             return _driverRepository.FinishDeliveryOrder(input);
         }
+
+        public CnhTypesOutput CnhTypes()
+        {
+            return _driverRepository.CnhTypes();
+        }
+
+        public PlansOutput Plans()
+        {
+            return _driverRepository.Plans();
+        }
     }
 }

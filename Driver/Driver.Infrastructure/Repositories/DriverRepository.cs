@@ -265,5 +265,75 @@ namespace Driver.Infrastructure.Repositories
                 _connection.CloseConnection();
             }
         }
+
+        public CnhTypesOutput CnhTypes()
+        {
+            var response = new CnhTypesOutput();
+
+            var QUERY = $"SELECT \"ID\", \"Description\" FROM \"CnhTypes\"";
+
+            try
+            {
+                var connection = _connection.GetConnection;
+                var result = connection.Query<CnhTypesItem>(QUERY).ToList();
+
+                response.CnhTypes = result;
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logRepository.CreateLog(new CreateLogInput
+                {
+                    MethodName = "Driver/Cnh",
+                    Message = ex.Message,
+                    StackMessage = ex.StackTrace,
+                    Type = "Error"
+                });
+
+                response.Error = true;
+                response.Message = ex.Message;
+                return response;
+            }
+            finally
+            {
+                _connection.CloseConnection();
+            }
+        }
+
+        public PlansOutput Plans()
+        {
+            var response = new PlansOutput();
+
+            var QUERY = $"SELECT \"ID\", \"Days\", \"Price\" FROM \"Plans\"";
+
+            try
+            {
+                var connection = _connection.GetConnection;
+                var result = connection.Query<PlanItem>(QUERY).ToList();
+
+                response.Plans = result;
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logRepository.CreateLog(new CreateLogInput
+                {
+                    MethodName = "Driver/Plans",
+                    Message = ex.Message,
+                    StackMessage = ex.StackTrace,
+                    Type = "Error"
+                });
+
+                response.Error = true;
+                response.Message = ex.Message;
+                return response;
+            }
+            finally
+            {
+                _connection.CloseConnection();
+            }
+        }
     }
 }

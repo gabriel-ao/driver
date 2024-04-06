@@ -13,5 +13,7 @@ namespace Driver.Domain.Interfaces.Services
 
         BaseOutput AcceptDeliveryOrder(AcceptDeliveryOrderInputModel input);
         BaseOutput FinishDeliveryOrder(FinishDeliveryOrderInputModel input);
+        CnhTypesOutput CnhTypes();
+        PlansOutput Plans();
     }
 }
