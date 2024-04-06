@@ -146,8 +146,9 @@ response:
 
 POST /Delivery/Create
 
+request:
 ```json
-request {
+{
   "title": "string",
   "description": "string",
   "price": 0
@@ -281,7 +282,7 @@ response:
 
 POST /Driver/AcceptDeliveryOrder
 
-request :
+request:
 ```json
 {
   "orderId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
