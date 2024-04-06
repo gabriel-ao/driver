@@ -16,3 +16,9 @@
 /Driver.Auth/Driver.Auth.Domain/obj
 /Driver.Auth/Driver.Auth.Infrastructure/bin/Debug/net6.0
 /Driver.Auth/Driver.Auth.Infrastructure/obj
+/Driver.Manager/Driver.Manager.API/bin/Debug/net6.0
+/Driver.Manager/Driver.Manager.API/obj
+/Driver.Manager/Driver.Manager.Domain/bin/Debug/net6.0
+/Driver.Manager/Driver.Manager.Domain/obj
+/Driver.Manager/Driver.Manager.Infrastructure/bin/Debug/net6.0
+/Driver.Manager/Driver.Manager.Infrastructure/obj
