@@ -35,7 +35,7 @@ BEGIN
                 "Drivers" AS DR ON DR."ID" = R."DriverID"
             WHERE 
                 (VH."Deleted" IS NULL OR VH."Deleted" = false) AND
-                VH."Plate" = CASE WHEN plate = '' THEN VH."Plate" ELSE plate END;
+                VH."Plate" LIKE  '%' || (CASE WHEN plate = '' THEN VH."Plate" ELSE plate END) || '%';
     END IF;
     		
 END;
