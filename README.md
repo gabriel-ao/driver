@@ -59,6 +59,42 @@ Certifique-se de executar esses passos na ordem apresentada para garantir que o 
 
 # Documentação de API
 
+## Backend: Driver.Auth
+## Base rota: /Auth
+
+### **POST**: fazer login para acessar a plataforma
+
+POST /Vehicle/Create
+
+request:
+```json
+{
+  "userData": "string",
+  "password": "string"
+}
+```
+
+response: 
+```json
+{
+  "message": "string",
+  "error": true,
+  "token": "string"
+}
+```
+
+**OBS:**
+   - **A aplicação do token é obrigatória para as rotas. o campo userDate é cnh para motorista e email para admin**
+   - **todas rotas tem o retorno "error" e "message", em caso de algum erro por regra ou aplicação, o "error" é retornado true e a informação da mensagem no "message"**
+
+# Header das rotas:
+```json
+{
+  "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiOWE0MjE3YzYtYTY1MC00Mzc3LWI4YzEtMmVkYTVhMzczN2FlIiwianRpIjoiYzAwNjRiNWJmNDI2NDY5NmE3YWU3YjQ4ZTVjNzAwMWEiLCJ1bmlxdWVfbmFtZSI6IjlhNDIxN2M2LWE2NTAtNDM3Ny1iOGMxLTJlZGE1YTM3MzdhZSIsIm5iZiI6MTcxMjQzNDExMiwiZXhwIjoxNzEyNjkzMzEyLCJpYXQiOjE3MTI0MzQxMTIsImlzcyI6Imh0dHA6Ly9teWFwaS5jb20iLCJhdWQiOiJkcml2ZXJBdXRoIn0.lwwhVSi39pxvevkJHFkEApKjQgMDYaw0zO-LXv1a6IY"
+}
+```
+
+
 ## Backend: Driver.Manager
 ## Base rota: /Vehicle
 
@@ -325,5 +361,45 @@ response:
 {
   "message": "string",
   "error": true
+}
+```
+
+
+### **Get**: Buscar tipos de cnh registrados na plataforma
+
+Get /Driver/Cnh
+
+response:
+```json
+{
+  "message": "string",
+  "error": true,
+  "cnhTypes": [
+    {
+      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "description": "string"
+    }
+  ]
+}
+```
+
+
+
+### **Get**: Buscar planos registrados na plataforma
+
+Get /Driver/Plans
+
+response:
+```json
+{
+  "message": "string",
+  "error": true,
+  "plans": [
+    {
+      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "days": 0,
+      "price": 0
+    }
+  ]
 }
 ```
