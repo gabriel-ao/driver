@@ -30,18 +30,29 @@ Para começar a utilizar o Projeto Driver, siga estas etapas simples:
 
 Siga os passos abaixo para configurar o ambiente do banco de dados:
 
-1. **Criação do Banco de Dados:**
-   - Certifique-se de ter o PostgreSQL instalado em sua máquina.
+1. **Configuração do PostgreSQL Docker:**
+   - Antes de tudo, é necessário estabelecer uma conexão com o PostgreSQL Docker. Utilize as seguintes informações para configurar a conexão:
+      ```
+         - Nome da Conexão: driver-db
+         - Endereço do Host: drive-db
+         - Porta: 5432
+         - Banco de Dados de Manutenção: postgres
+         - Nome de Usuário: postgres
+         - Senha: postgres
+      ```
    - Crie um banco de dados com o nome `driver-db`.
-   - Adicione sua string de conexão ao código dotnet com exemplo: 
-   ```sql
-    string connectionString = "Host=localhost;Port=<PORTA_POSTGRES>;Database=driver;User Id=<USER_NAME>;Password=<PASSWORD>;";
 
 2. **Criação das Tabelas:**
    - Execute o script inicial para criar todas as tabelas necessárias. Você pode encontrá-lo [neste diretório](https://github.com/gabriel-ao/driver/blob/main/Driver/database/driver-db/scripts/initial-driver-db.sql).
 
 3. **Implementação de Lógicas e Validações:**
    - Utilize os scripts de funções para adicionar lógica e validações ao banco de dados. Eles estão disponíveis [neste diretório](https://github.com/gabriel-ao/driver/tree/main/Driver/database/driver-db/functions).
+
+
+4. **Adicione sua string de conexão ao código dotnet com exemplo:**
+   ```sql
+    string connectionString = "Host=localhost;Port=<PORTA_POSTGRES>;Database=driver;User Id=<USER_NAME>;Password=<PASSWORD>;";
+
 
 Certifique-se de executar esses passos na ordem apresentada para garantir que o ambiente do banco de dados seja configurado corretamente e todas as funcionalidades estejam disponíveis para a aplicação.
 
@@ -282,7 +293,7 @@ response:
 
 POST /Driver/AcceptDeliveryOrder
 
-request:
+request :
 ```json
 {
   "orderId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
