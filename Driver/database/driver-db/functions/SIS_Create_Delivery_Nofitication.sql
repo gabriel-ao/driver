@@ -1,8 +1,8 @@
--- FUNCTION: public.Create_Delivery_Nofitication(uuid, character varying, character varying, uuid[])
+-- FUNCTION: public.SIS_Create_Delivery_Nofitication(uuid, character varying, character varying, uuid[])
 
--- DROP FUNCTION IF EXISTS public."Create_Delivery_Nofitication"(uuid, character varying, character varying, uuid[]);
+-- DROP FUNCTION IF EXISTS public."SIS_Create_Delivery_Nofitication"(uuid, character varying, character varying, uuid[]);
 
-CREATE OR REPLACE FUNCTION public."Create_Delivery_Nofitication"(
+CREATE OR REPLACE FUNCTION public."SIS_Create_Delivery_Nofitication"(
 	orderid uuid,
 	title character varying,
 	description character varying,
@@ -40,5 +40,5 @@ BEGIN
 END;
 $BODY$;
 
-ALTER FUNCTION public."Create_Delivery_Nofitication"(uuid, character varying, character varying, uuid[])
+ALTER FUNCTION public."SIS_Create_Delivery_Nofitication"(uuid, character varying, character varying, uuid[])
     OWNER TO postgres;

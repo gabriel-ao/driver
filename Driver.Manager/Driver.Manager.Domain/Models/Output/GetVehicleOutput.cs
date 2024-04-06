@@ -18,6 +18,7 @@ namespace Driver.Manager.Domain.Models.Output
         public string Model { get; set; }
         public string Plate { get; set; }
         public string Status { get; set; }
-        public string Driver { get; set; }
+        public string DriverName { get; set; }
+        public string DriverCnh { get; set; }
     }
 }

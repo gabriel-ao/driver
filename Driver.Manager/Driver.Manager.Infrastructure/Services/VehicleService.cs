@@ -22,11 +22,13 @@ namespace Driver.Manager.Infrastructure.Services
 
         public BaseOutput CreateVehicle(CreateVehicleInputModel input)
         {
+            input.Plate = input.Plate.ToUpper().Trim();
             return _vehicleRepository.CreateVehicle(input);
         }
 
         public GetVehicleOutput GetVehicle(GetVehicleInputModel input)
         {
+            input.Plate = input.Plate.ToUpper().Trim();
             return _vehicleRepository.GetVehicle(input);
         }
 

@@ -23,8 +23,6 @@ namespace Driver.Infrastructure.Services
             input.Cnpj = input.Cnpj.Replace(".", "").Replace("-", "").Replace(" ", "");
             input.CnhNumber = input.CnhNumber.Replace(".", "").Replace("-", "").Replace(" ", "");
 
-            input.CnhImage = "";
-
             var result = _driverRepository.CreateDriver(input);
 
             //TODO: ADICIONAR O TOKEN COM O USER ID

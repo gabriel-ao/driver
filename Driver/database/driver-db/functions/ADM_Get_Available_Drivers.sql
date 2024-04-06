@@ -17,8 +17,7 @@ BEGIN
 			SELECT RE."ID" AS "RentID" FROM "Rents" AS RE
 				LEFT JOIN "DeliveryOrders" AS DOS ON DOS."RentID" = RE."ID"
 			WHERE RE."PricePaid" IS NULL 
-	  			AND DOS."StatusID" != (SELECT PST."ID" FROM "ProcessStatus" AS PST WHERE PST."Description" = 'Aceito')
-				AND (DOS."RentID" = RE."ID" OR DOS."RentID" IS NULL);
+				AND ((DOS."RentID" = RE."ID" AND DOS."StatusID" != (SELECT PST."ID" FROM "ProcessStatus" AS PST WHERE PST."Description" = 'Aceito')) OR DOS."RentID" IS NULL);
 
     END IF;
 

@@ -1,6 +1,6 @@
--- FUNCTION: public.DRV_Create_Driver(character varying, character varying, character varying, date, character varying, uuid, character varying, character varying)
+-- FUNCTION: public.DRV_Create_Driver(character varying, character varying, character varying, date, character varying, uuid, character varying)
 
--- DROP FUNCTION IF EXISTS public."DRV_Create_Driver"(character varying, character varying, character varying, date, character varying, uuid, character varying, character varying);
+-- DROP FUNCTION IF EXISTS public."DRV_Create_Driver"(character varying, character varying, character varying, date, character varying, uuid, character varying);
 
 CREATE OR REPLACE FUNCTION public."DRV_Create_Driver"(
 	firstname character varying,
@@ -9,7 +9,6 @@ CREATE OR REPLACE FUNCTION public."DRV_Create_Driver"(
 	birthdate date,
 	cnhnumber character varying,
 	cnhid uuid,
-	cnhimage character varying,
 	password character varying)
     RETURNS TABLE("UserID" uuid, "Message" character varying, "Error" boolean) 
     LANGUAGE 'plpgsql'
@@ -43,7 +42,7 @@ BEGIN
 		IF NOT EXISTS (SELECT 1 FROM "Drivers" AS DR WHERE DR."CnhNumber" = cnhnumber and (DR."Active" IS NULL OR DR."Active" = true)) THEN
 			"UserID" := uuid_generate_v4();
 			INSERT INTO "Drivers" ("ID", "FirstName", "LastName", "CNPJ", "BirthDate", "CnhNumber", "CnhID", "CnhImage", "Password", "Active")
-			VALUES ("UserID" , firstname, lastname, cnpj, birthdate, cnhnumber, cnhid, cnhimage, password, true);
+			VALUES ("UserID" , firstname, lastname, cnpj, birthdate, cnhnumber, cnhid, '', password, true);
 		ELSE 
 			"Message" := 'Driver exist';
 			"Error" := TRUE;
@@ -55,5 +54,5 @@ BEGIN
 END;
 $BODY$;
 
-ALTER FUNCTION public."DRV_Create_Driver"(character varying, character varying, character varying, date, character varying, uuid, character varying, character varying)
+ALTER FUNCTION public."DRV_Create_Driver"(character varying, character varying, character varying, date, character varying, uuid, character varying)
     OWNER TO postgres;

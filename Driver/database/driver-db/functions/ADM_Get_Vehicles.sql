@@ -5,7 +5,7 @@
 CREATE OR REPLACE FUNCTION public."ADM_Get_Vehicles"(
 	plate character varying,
 	userid uuid)
-    RETURNS TABLE("ID" uuid, "Year" integer, "Model" character varying, "Plate" character varying, "Status" character varying, "Driver" character varying) 
+    RETURNS TABLE("ID" uuid, "Year" integer, "Model" character varying, "Plate" character varying, "Status" character varying, "DriverName" character varying, "DriverCnh" character varying) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE PARALLEL UNSAFE
@@ -26,7 +26,8 @@ BEGIN
                     WHEN R."VehicleID" IS NOT NULL AND R."PricePaid" IS NULL THEN 'Rented'::character varying 
                     ELSE 'Available'::character varying 
                 END AS "Status",
-                DR."CnhNumber" as "Driver"
+                CONCAT(DR."FirstName", ' ', DR."LastName") AS "DriverName",
+                DR."CnhNumber" AS "DriverCnh"
             FROM 
                 "Vehicles" AS VH 
             LEFT JOIN 

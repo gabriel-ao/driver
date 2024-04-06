@@ -29,7 +29,6 @@ namespace Driver.Infrastructure.Repositories
                 $"'{input.BirthDate.ToString("yyyy-MM-dd")}', " +
                 $"'{input.CnhNumber}', " +
                 $"'{input.CnhID}', " +
-                $"'{input.CnhImage}', " +
                 $"'{input.Password}')";
 
             try
