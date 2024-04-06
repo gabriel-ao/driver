@@ -64,7 +64,7 @@ Certifique-se de executar esses passos na ordem apresentada para garantir que o 
 
 ### **POST**: fazer login para acessar a plataforma
 
-POST /Vehicle/Create
+POST /Auth/Create
 
 request:
 ```json
