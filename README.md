@@ -46,30 +46,29 @@ Siga os passos abaixo para configurar o ambiente do banco de dados:
 Certifique-se de executar esses passos na ordem apresentada para garantir que o ambiente do banco de dados seja configurado corretamente e todas as funcionalidades estejam disponíveis para a aplicação.
 
 
-# Documentação de API
+## Documentação de API
 
-## Backend: Driver.Manager
+## Backend: Driver
 ## Base rota: /Vehicle
 
 ### **POST**: Criar um novo veículo
 
-POST /Vehicle/Create
-
-request:
 ```json
+POST /Vehicle/Create
+Content-Type: application/json
+
+request
 {
   "year": 0,
   "model": "string",
   "plate": "string"
 }
-```
 
-response: 
-```json
-{
+response {
   "message": "string",
   "error": true
 }
+
 ```
 
 ### **Get**: listar veículos
@@ -77,11 +76,11 @@ response:
 #### Parâmetros de entrada
 - `plate` (opcional): Filtra os veículos.
 
-Get /Vehicle/Get
-
-response: 
 ```json
-{
+Get /Vehicle/Get
+Content-Type: application/json
+
+response {
   "message": "string",
   "error": true,
   "vehicles": [
@@ -98,68 +97,64 @@ response:
 ```
 
 
+
 ### **PUT**: Atualizar a placa do veículo
 
-PUT /Vehicle/Update
-
-request:
 ```json
-{
+PUT /Vehicle/Update
+Content-Type: application/json
+
+request {
   "newPlate": "string",
   "vehicleId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
 }
-```
 
-response: 
-```json
-{
+response {
   "message": "string",
   "error": true
 }
+
 ```
 
 ### **DEL**: remover um veículo
 
-DEL /Vehicle/Delete
-
-request:
 ```json
-{
+DEL /Vehicle/Delete
+Content-Type: application/json
+
+request {
   "vehicleId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
 }
-```
 
-response:
-```json
-{
+response {
   "message": "string",
   "error": true
 }
+
 ```
 
 
 
-## Backend: Driver.Manager
+## Backend: Driver
 ## Base rota: /Delivery
 
 ### **POST**: Criar um novo pedido
 
-POST /Delivery/Create
-
 ```json
+POST /Delivery/Create
+Content-Type: application/json
+
 request {
   "title": "string",
   "description": "string",
   "price": 0
 }
-```
 
-response:
-```json
-{
+response {
   "message": "string",
   "error": true
 }
+
 ```
 
 ### **Get**: listar notificações de pedidos
@@ -167,11 +162,11 @@ response:
 #### Parâmetros de entrada
 - `orderId`: listar motoristas notificados por esse pedido.
 
+```json
 Get /Vehicle/Get
+Content-Type: application/json
 
-response:
-```json 
-{
+response {
   "message": "string",
   "error": true,
   "vehicles": [
@@ -191,11 +186,11 @@ response:
 
 ### **POST**: Criar um novo motorista
 
-POST /Driver/Create
-
-request:
 ```json
-{
+POST /Driver/Create
+Content-Type: application/json
+
+request {
   "firstName": "string",
   "lastName": "string",
   "cnpj": "string",
@@ -204,31 +199,26 @@ request:
   "cnhID": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
   "password": "string"
 }
-```
 
-response:
-```json
-{
+response {
   "message": "string",
   "error": true
 }
+
 ```
 
 
 ### **POST**: Criar uma nova reserva
 
-POST /Driver/Create/Rent
-
-request:
 ```json
-{
+POST /Driver/Create/Rent
+Content-Type: application/json
+
+request {
   "planId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
 }
-```
 
-response:
-```json
-{
+response {
   "message": "string",
   "error": true,
   "rentId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
@@ -239,24 +229,25 @@ response:
 
 ### **Put**: Atualizar uma nova reserva
 
-PUT /Driver/Update/Rent
+#### Parâmetros de entrada
+- `orderId`: listar motoristas notificados por esse pedido.
 
-request:
 ```json
-{
+POST /Driver/Update/Rent
+Content-Type: application/json
+
+request {
   "previousDate": "2024-04-05T03:19:03.146Z",
   "rentId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
 }
-```
 
-response:
-```json
-{
+response {
   "message": "string",
   "error": true,
   "finishDate": "2024-04-05T03:19:03.153Z",
   "price": 0
 }
+
 ```
 
 
@@ -266,11 +257,13 @@ response:
 #### Parâmetros de entrada
 - `documentImage`: Adiciona um arquivo de imagem para salvar a CNH do motorista.
 
-response:
 ```json
-{
+Put /Driver/Update/CNH
+Content-Type: application/json
+
+response {
   "message": "string",
-  "error": true
+  "error": true,
 }
 ```
 
@@ -278,40 +271,35 @@ response:
 
 ### **POST**: Aceitar um novo pedido de entrega
 
-
-POST /Driver/AcceptDeliveryOrder
-
-request :
 ```json
-{
+POST /Driver/AcceptDeliveryOrder
+Content-Type: application/json
+
+request {
   "orderId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
 }
-```
 
-response:
-```json
-{
+response {
   "message": "string",
   "error": true
 }
+
 ```
 
 
 ### **PUT**: Finalizar o pedido
 
-PUT /Driver/FinishDeliveryOrder
-
-request:
 ```json
-{
+PUT /Driver/FinishDeliveryOrder
+Content-Type: application/json
+
+request {
   "orderId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
 }
-```
 
-response:
-```json
-{
+response {
   "message": "string",
   "error": true
 }
+
 ```
