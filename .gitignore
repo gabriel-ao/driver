@@ -22,3 +22,6 @@
 /Driver.Manager/Driver.Manager.Domain/obj
 /Driver.Manager/Driver.Manager.Infrastructure/bin/Debug/net6.0
 /Driver.Manager/Driver.Manager.Infrastructure/obj
+/Driver.Auth/Driver.Auth.Tests/bin/Debug/net6.0
+/Driver.Auth/Driver.Auth.Application.Tests/obj/Debug
+/Driver.Auth/Driver.Auth.Tests/obj

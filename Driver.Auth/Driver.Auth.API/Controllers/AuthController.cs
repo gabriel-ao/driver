@@ -6,6 +6,7 @@ using Driver.Auth.Domain.Models.Output;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using System.CodeDom.Compiler;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Principal;
@@ -17,8 +18,8 @@ namespace Driver.Auth.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
-        private readonly IOptions<AppitoConfiguration> _config;
-        public AuthController(IAuthService authService, IOptions<AppitoConfiguration> config)
+        private readonly IOptions<DriverConfiguration> _config;
+        public AuthController(IAuthService authService, IOptions<DriverConfiguration> config)
         {
             _authService = authService;
             _config = config;
@@ -42,30 +43,7 @@ namespace Driver.Auth.API.Controllers
 
             if (isValidUser)
             {
-                var identity = new ClaimsIdentity(
-                    new GenericIdentity(response.UserID, "UserID"),
-                    new[] {
-                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
-                        new Claim(JwtRegisteredClaimNames.UniqueName, response.UserID)
-                    }
-                );
-
-                var dataCriacao = DateTime.Now;
-
-                var dataExpiracao = dataCriacao +
-                 TimeSpan.FromDays(3);
-
-                var handler = new JwtSecurityTokenHandler();
-                var securityToken = handler.CreateToken(new SecurityTokenDescriptor
-                {
-                    Issuer = tokenConfigurations.Issuer,
-                    Audience = tokenConfigurations.Audience,
-                    SigningCredentials = signingConfigurations.SigningCredentials,
-                    Subject = identity,
-                    NotBefore = dataCriacao,
-                    Expires = dataExpiracao
-                });
-                var token = handler.WriteToken(securityToken);
+                var token = GenerateToken(response.UserID, tokenConfigurations, signingConfigurations);
 
                 return Ok(new AuthOutput
                 {
@@ -82,6 +60,37 @@ namespace Driver.Auth.API.Controllers
                 Message = "Failed to authenticate"
             });
 
+        }
+
+
+        protected string GenerateToken(string userId, [FromServices] TokenConfigurations tokenConfigurations, [FromServices] SigningConfigurations signingConfigurations)
+        {
+            var identity = new ClaimsIdentity(
+                new GenericIdentity(userId, "UserID"),
+                new[] {
+                                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
+                                    new Claim(JwtRegisteredClaimNames.UniqueName, userId)
+                }
+            );
+
+            var dataCriacao = DateTime.Now;
+
+            var dataExpiracao = dataCriacao +
+             TimeSpan.FromDays(3);
+
+            var handler = new JwtSecurityTokenHandler();
+            var securityToken = handler.CreateToken(new SecurityTokenDescriptor
+            {
+                Issuer = tokenConfigurations.Issuer,
+                Audience = tokenConfigurations.Audience,
+                SigningCredentials = signingConfigurations.SigningCredentials,
+                Subject = identity,
+                NotBefore = dataCriacao,
+                Expires = dataExpiracao
+            });
+            var token = handler.WriteToken(securityToken);
+
+            return token;
         }
 
     }

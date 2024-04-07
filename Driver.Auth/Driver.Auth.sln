@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Driver.Auth.API", "Driver.Auth.API\Driver.Auth.API.csproj", "{B9D431F9-C1E4-40E4-9B4E-A6AC662BB2D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Driver.Auth.API", "Driver.Auth.API\Driver.Auth.API.csproj", "{B9D431F9-C1E4-40E4-9B4E-A6AC662BB2D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Driver.Auth.Domain", "Driver.Auth.Domain\Driver.Auth.Domain.csproj", "{FC3360C8-2A07-4F5E-B38D-A07E7F384F3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Driver.Auth.Domain", "Driver.Auth.Domain\Driver.Auth.Domain.csproj", "{FC3360C8-2A07-4F5E-B38D-A07E7F384F3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Driver.Auth.Infrastructure", "Driver.Auth.Infrastructure\Driver.Auth.Infrastructure.csproj", "{68506CE7-FF14-4C1D-B429-B460828AD9D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Driver.Auth.Infrastructure", "Driver.Auth.Infrastructure\Driver.Auth.Infrastructure.csproj", "{68506CE7-FF14-4C1D-B429-B460828AD9D5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{91AA8298-2166-4C30-8D9C-835871A4DDB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Driver.Auth.Tests", "Driver.Auth.Tests\Driver.Auth.Tests.csproj", "{AD1194C0-F6C4-43B4-95FE-18CE5DA3C71D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +31,16 @@ Global
 		{68506CE7-FF14-4C1D-B429-B460828AD9D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68506CE7-FF14-4C1D-B429-B460828AD9D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68506CE7-FF14-4C1D-B429-B460828AD9D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD1194C0-F6C4-43B4-95FE-18CE5DA3C71D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD1194C0-F6C4-43B4-95FE-18CE5DA3C71D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD1194C0-F6C4-43B4-95FE-18CE5DA3C71D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD1194C0-F6C4-43B4-95FE-18CE5DA3C71D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AD1194C0-F6C4-43B4-95FE-18CE5DA3C71D} = {91AA8298-2166-4C30-8D9C-835871A4DDB2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14728A62-823B-4652-9401-171B02A5B859}

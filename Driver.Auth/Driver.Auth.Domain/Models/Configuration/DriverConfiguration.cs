@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Driver.Auth.Domain.Models.Configuration
 {
-    public class AppitoConfiguration
+    public class DriverConfiguration
     {
         public string DbConnectionString { get; set; }
     }
