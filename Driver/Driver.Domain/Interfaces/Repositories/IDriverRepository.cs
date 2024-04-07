@@ -14,5 +14,7 @@ namespace Driver.Domain.Interfaces.Repositories
         BaseOutput FinishDeliveryOrder(FinishDeliveryOrderInputModel input);
         CnhTypesOutput CnhTypes();
         PlansOutput Plans();
+        NotificartionDetailsOutput NotificartionDetails(Guid orderId, Guid userId);
+        GetNotificationsOutput GetNotifications(Guid userId);
     }
 }

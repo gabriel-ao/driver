@@ -335,5 +335,76 @@ namespace Driver.Infrastructure.Repositories
                 _connection.CloseConnection();
             }
         }
+
+        public NotificartionDetailsOutput NotificartionDetails(Guid orderId, Guid userId)
+        {
+            var response = new NotificartionDetailsOutput();
+
+            var QUERY = $"SELECT * FROM \"public\".\"DRV_Notification_Details\"(" +
+                $"'{orderId}', " +
+                $"'{userId}')";
+
+            try
+            {
+                var connection = _connection.GetConnection;
+                response = connection.QueryFirstOrDefault<NotificartionDetailsOutput>(QUERY);
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logRepository.CreateLog(new CreateLogInput
+                {
+                    MethodName = $"NotificationDetails/{orderId}",
+                    Message = JsonConvert.SerializeObject(ex.Message).Replace("'", "´"),
+                    StackMessage = JsonConvert.SerializeObject(ex.Message).Replace("'", "´"),
+                    Type = "Error"
+                });
+
+                response.Error = true;
+                response.Message = ex.Message;
+                return response;
+            }
+            finally
+            {
+                _connection.CloseConnection();
+            }
+        }
+
+        public GetNotificationsOutput GetNotifications(Guid userId)
+        {
+            var response = new GetNotificationsOutput();
+
+            var QUERY = $"SELECT * FROM \"public\".\"DRV_Get_Notifications\"(" +
+                $"'{userId}')";
+
+            try
+            {
+                var connection = _connection.GetConnection;
+                var result = connection.Query<NotificationItem>(QUERY).ToList();
+
+                response.Notifications = result;
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                _logRepository.CreateLog(new CreateLogInput
+                {
+                    MethodName = "Get/GetNotifications",
+                    Message = ex.Message,
+                    StackMessage = ex.StackTrace,
+                    Type = "Error"
+                });
+
+                response.Error = true;
+                response.Message = ex.Message;
+                return response;
+            }
+            finally
+            {
+                _connection.CloseConnection();
+            }
+        }
     }
 }

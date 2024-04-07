@@ -209,5 +209,30 @@ namespace Driver.API.Controllers
             return Ok(result);
         }
 
+        [Authorize("Bearer")]
+        [HttpGet("GetNotifications")]
+        public ActionResult<GetNotificationsOutput> GetNotifications()
+        {
+            var token = Request.Headers["Authorization"].ToString();
+            token = token.Replace("Bearer ", "").Replace("bearer ", "");
+            var userId = TokenHelper.GetUserId(token);
+
+            var result = _driverService.GetNotifications(userId);
+
+            return Ok(result);
+        }
+
+        [Authorize("Bearer")]
+        [HttpGet("NotificationDetails/{orderId}")]
+        public ActionResult<NotificartionDetailsOutput> NotificartionDetails(Guid orderId)
+        {
+            var token = Request.Headers["Authorization"].ToString();
+            token = token.Replace("Bearer ", "").Replace("bearer ", "");
+            var userId = TokenHelper.GetUserId(token);
+
+            var result = _driverService.NotificartionDetails(orderId, userId);
+
+            return Ok(result);
+        }
     }
 }

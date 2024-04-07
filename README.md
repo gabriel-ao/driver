@@ -403,3 +403,42 @@ response:
   ]
 }
 ```
+
+
+### **Get**: listar minhas notificações
+
+Get /Driver/GetNotifications
+
+response:
+```json
+{
+  "message": "string",
+  "error": true,
+  "notifications": [
+    {
+      "orderID": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "title": "string",
+      "deliveryStatus": "string",
+      "read": true,
+      "createDate": "2024-04-07T14:34:00.207Z"
+    }
+  ]
+}
+```
+
+
+### **Get**: detalhe de notificação
+
+Get /Driver/NotificationDetails/{orderId}
+
+response:
+```json
+{
+  "message": "string",
+  "error": true,
+  "orderID": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "title": "string",
+  "description": "string",
+  "createDate": "2024-04-07T14:34:44.414Z"
+}
+```

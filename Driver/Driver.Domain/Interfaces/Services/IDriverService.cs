@@ -15,5 +15,9 @@ namespace Driver.Domain.Interfaces.Services
         BaseOutput FinishDeliveryOrder(FinishDeliveryOrderInputModel input);
         CnhTypesOutput CnhTypes();
         PlansOutput Plans();
+
+        NotificartionDetailsOutput NotificartionDetails(Guid orderId,Guid userId);
+        GetNotificationsOutput GetNotifications(Guid userId);
+
     }
 }

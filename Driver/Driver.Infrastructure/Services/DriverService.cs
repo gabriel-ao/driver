@@ -66,5 +66,15 @@ namespace Driver.Infrastructure.Services
         {
             return _driverRepository.Plans();
         }
+
+        public NotificartionDetailsOutput NotificartionDetails(Guid orderId, Guid userId)
+        {
+            return _driverRepository.NotificartionDetails(orderId, userId);
+        }
+
+        public GetNotificationsOutput GetNotifications(Guid userId)
+        {
+            return _driverRepository.GetNotifications(userId);
+        }
     }
 }
